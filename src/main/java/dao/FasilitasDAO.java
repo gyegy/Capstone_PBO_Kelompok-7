@@ -154,4 +154,75 @@ public class FasilitasDAO {
             return false;
         }
     }
+    
+    //ini method cari pasilitas
+    public List<Fasilitas> searchFasilitas(String keyword) {
+
+        List<Fasilitas> daftarFasilitas = new ArrayList<>();
+
+        String sql = "SELECT * FROM fasilitas "
+                + "WHERE CAST(id_fasilitas AS CHAR) LIKE ? "
+                + "OR nama_fasilitas LIKE ? "
+                + "OR jenis_fasilitas LIKE ? "
+                + "OR lokasi LIKE ? "
+                + "OR kondisi LIKE ? "
+                + "OR keterangan LIKE ? "
+                + "ORDER BY id_fasilitas ASC";
+
+        try (Connection conn = Koneksi.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            String parameter = "%" + keyword + "%";
+
+            for (int i = 1; i <= 6; i++) {
+                ps.setString(i, parameter);
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+
+                    Fasilitas fasilitas = new Fasilitas();
+
+                    fasilitas.setIdFasilitas(
+                            rs.getInt("id_fasilitas")
+                    );
+
+                    fasilitas.setNamaFasilitas(
+                            rs.getString("nama_fasilitas")
+                    );
+
+                    fasilitas.setJenisFasilitas(
+                            rs.getString("jenis_fasilitas")
+                    );
+
+                    fasilitas.setLokasi(
+                            rs.getString("lokasi")
+                    );
+
+                    fasilitas.setKondisi(
+                            rs.getString("kondisi")
+                    );
+
+                    fasilitas.setKeterangan(
+                            rs.getString("keterangan")
+                    );
+
+                    fasilitas.setAdminIdPengguna(
+                            rs.getInt("ADMIN_id_pengguna")
+                    );
+
+                    daftarFasilitas.add(fasilitas);
+                }
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(
+                    "Gagal mencari fasilitas: " + e.getMessage()
+            );
+        }
+
+        return daftarFasilitas;
+    }
 }

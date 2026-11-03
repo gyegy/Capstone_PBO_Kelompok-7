@@ -452,4 +452,79 @@ public class PenggunaDAO {
             return false;
         }
     }
+    
+    // ini method cari data
+    public List<Pengguna> searchPengguna(String keyword) {
+
+        List<Pengguna> daftarPengguna = new ArrayList<>();
+
+        String sql = "SELECT * FROM pengguna "
+                + "WHERE CAST(id_pengguna AS CHAR) LIKE ? "
+                + "OR nama_lengkap LIKE ? "
+                + "OR username LIKE ? "
+                + "OR no_telepon LIKE ? "
+                + "OR peran LIKE ? "
+                + "OR status_aktif LIKE ? "
+                + "ORDER BY id_pengguna ASC";
+
+        try (Connection conn = Koneksi.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            String parameter = "%" + keyword + "%";
+
+            for (int i = 1; i <= 6; i++) {
+                ps.setString(i, parameter);
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+
+                    Pengguna pengguna = new Pengguna();
+
+                    pengguna.setIdPengguna(
+                            rs.getInt("id_pengguna")
+                    );
+
+                    pengguna.setNamaLengkap(
+                            rs.getString("nama_lengkap")
+                    );
+
+                    pengguna.setUsername(
+                            rs.getString("username")
+                    );
+
+                    pengguna.setPassword(
+                            rs.getString("password")
+                    );
+
+                    pengguna.setEmail(
+                            rs.getString("email")
+                    );
+
+                    pengguna.setNoTelepon(
+                            rs.getString("no_telepon")
+                    );
+
+                    pengguna.setPeran(
+                            rs.getString("peran")
+                    );
+
+                    pengguna.setStatusAktif(
+                            rs.getString("status_aktif")
+                    );
+
+                    daftarPengguna.add(pengguna);
+                }
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(
+                    "Gagal mencari pengguna: " + e.getMessage()
+            );
+        }
+
+        return daftarPengguna;
+    }
 }
