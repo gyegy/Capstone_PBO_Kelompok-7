@@ -4,7 +4,8 @@ import dao.PenggunaDAO;
 import model.Pengguna;
 
 public class LoginController {
-    private PenggunaDAO penggunaDAO;
+
+    private final PenggunaDAO penggunaDAO;
 
     public LoginController() {
         penggunaDAO = new PenggunaDAO();
@@ -12,21 +13,23 @@ public class LoginController {
 
     public Pengguna prosesLogin(String username, String password) {
 
-        if (username.isEmpty() || password.isEmpty()) {
+        if (username == null || username.trim().isEmpty()
+                || password == null || password.trim().isEmpty()) {
             return null;
         }
 
-        Pengguna pengguna = penggunaDAO.login(username);
+        Pengguna pengguna = penggunaDAO.login(username.trim());
 
         if (pengguna == null) {
             return null;
         }
 
-        if (!pengguna.getPassword().equals(password)) {
+        if (pengguna.getPassword() == null
+                || !pengguna.getPassword().equals(password)) {
             return null;
         }
 
-        if (!pengguna.getStatusAktif().equals("Aktif")) {
+        if (!"Aktif".equals(pengguna.getStatusAktif())) {
             return null;
         }
 

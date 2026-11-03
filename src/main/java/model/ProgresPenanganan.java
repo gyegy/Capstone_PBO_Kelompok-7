@@ -13,11 +13,8 @@ public class ProgresPenanganan {
     public ProgresPenanganan() {
     }
 
-    public ProgresPenanganan(
-            int idProgres,
-            Timestamp waktuUpdate,
-            String statusProgres,
-            String tindakanPenanganan,
+    public ProgresPenanganan(int idProgres, Timestamp waktuUpdate,
+            String statusProgres, String tindakanPenanganan,
             int penugasanIdPenugasan) {
 
         this.idProgres = idProgres;

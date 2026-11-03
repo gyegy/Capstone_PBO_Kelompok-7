@@ -1,7 +1,7 @@
 package model;
 
-
 public class Fasilitas {
+
     private int idFasilitas;
     private String namaFasilitas;
     private String jenisFasilitas;
@@ -10,20 +10,13 @@ public class Fasilitas {
     private String keterangan;
     private int adminIdPengguna;
 
-    // Constructor kosong
     public Fasilitas() {
     }
 
-    // Constructor dengan parameter
-    public Fasilitas(
-            int idFasilitas,
-            String namaFasilitas,
-            String jenisFasilitas,
-            String lokasi,
-            String kondisi,
-            String keterangan,
-            int adminIdPengguna
-    ) {
+    public Fasilitas(int idFasilitas, String namaFasilitas,
+            String jenisFasilitas, String lokasi, String kondisi,
+            String keterangan, int adminIdPengguna) {
+
         this.idFasilitas = idFasilitas;
         this.namaFasilitas = namaFasilitas;
         this.jenisFasilitas = jenisFasilitas;
@@ -33,7 +26,6 @@ public class Fasilitas {
         this.adminIdPengguna = adminIdPengguna;
     }
 
-    // Getter dan Setter
     public int getIdFasilitas() {
         return idFasilitas;
     }

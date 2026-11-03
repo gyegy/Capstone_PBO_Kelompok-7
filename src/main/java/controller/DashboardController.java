@@ -1,11 +1,11 @@
-package com.mycompany.aerocare.controller;
+package controller;
 
 import dao.DashboardDAO;
 import java.util.Map;
 
 public class DashboardController {
 
-    private DashboardDAO dashboardDAO;
+    private final DashboardDAO dashboardDAO;
 
     public DashboardController() {
         dashboardDAO = new DashboardDAO();

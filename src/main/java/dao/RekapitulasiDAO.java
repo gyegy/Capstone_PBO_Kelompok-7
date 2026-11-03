@@ -1,12 +1,13 @@
 package dao;
 
 import config.Koneksi;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class RekapitulasiDAO {
@@ -14,9 +15,9 @@ public class RekapitulasiDAO {
     public Map<String, Integer> getRekapLaporan(
             Date tanggalAwal, Date tanggalAkhir) {
 
-        Map<String, Integer> rekap = new HashMap<>();
+        Map<String, Integer> rekap = new LinkedHashMap<>();
 
-        // Inisialisasi nilai awal agar kategori kosong tetap bernilai 0
+        // Nilai awal
         rekap.put("totalLaporan", 0);
         rekap.put("menunggu", 0);
         rekap.put("diproses", 0);
@@ -24,6 +25,11 @@ public class RekapitulasiDAO {
         rekap.put("prioritasRendah", 0);
         rekap.put("prioritasSedang", 0);
         rekap.put("prioritasTinggi", 0);
+
+        if (tanggalAwal == null || tanggalAkhir == null
+                || tanggalAwal.after(tanggalAkhir)) {
+            return rekap;
+        }
 
         String sql = "SELECT "
                 + "COUNT(*) AS totalLaporan, "
@@ -42,41 +48,37 @@ public class RekapitulasiDAO {
                 + "FROM laporan_kerusakan "
                 + "WHERE tanggal_laporan BETWEEN ? AND ?";
 
-        try (Connection conn = Koneksi.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setDate(1, tanggalAwal);
-            ps.setDate(2, tanggalAkhir);
-
-            try (ResultSet rs = ps.executeQuery()) {
-
-                if (rs.next()) {
-                    rekap.put("totalLaporan",
-                            rs.getInt("totalLaporan"));
-
-                    rekap.put("menunggu",
-                            rs.getInt("menunggu"));
-
-                    rekap.put("diproses",
-                            rs.getInt("diproses"));
-
-                    rekap.put("selesai",
-                            rs.getInt("selesai"));
-
-                    rekap.put("prioritasRendah",
-                            rs.getInt("prioritasRendah"));
-
-                    rekap.put("prioritasSedang",
-                            rs.getInt("prioritasSedang"));
-
-                    rekap.put("prioritasTinggi",
-                            rs.getInt("prioritasTinggi"));
-                }
+        try (Connection conn = Koneksi.getConnection()) {
+            if (conn == null) {
+                return rekap;
             }
 
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setDate(1, tanggalAwal);
+                ps.setDate(2, tanggalAkhir);
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        rekap.put("totalLaporan",
+                                rs.getInt("totalLaporan"));
+                        rekap.put("menunggu",
+                                rs.getInt("menunggu"));
+                        rekap.put("diproses",
+                                rs.getInt("diproses"));
+                        rekap.put("selesai",
+                                rs.getInt("selesai"));
+                        rekap.put("prioritasRendah",
+                                rs.getInt("prioritasRendah"));
+                        rekap.put("prioritasSedang",
+                                rs.getInt("prioritasSedang"));
+                        rekap.put("prioritasTinggi",
+                                rs.getInt("prioritasTinggi"));
+                    }
+                }
+            }
         } catch (SQLException e) {
-            System.out.println("Gagal mengambil rekapitulasi: "
-                    + e.getMessage());
+            System.out.println(
+                    "Gagal mengambil rekapitulasi: " + e.getMessage());
         }
 
         return rekap;

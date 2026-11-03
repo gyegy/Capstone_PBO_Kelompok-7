@@ -1,6 +1,7 @@
 package model;
 
 public class Pengguna {
+
     private int idPengguna;
     private String namaLengkap;
     private String username;
@@ -31,60 +32,60 @@ public class Pengguna {
         return idPengguna;
     }
 
-    public String getNamaLengkap() {
-        return namaLengkap;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getNoTelepon() {
-        return noTelepon;
-    }
-
-    public String getPeran() {
-        return peran;
-    }
-
-    public String getStatusAktif() {
-        return statusAktif;
-    }
-
     public void setIdPengguna(int idPengguna) {
         this.idPengguna = idPengguna;
+    }
+
+    public String getNamaLengkap() {
+        return namaLengkap;
     }
 
     public void setNamaLengkap(String namaLengkap) {
         this.namaLengkap = namaLengkap;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNoTelepon() {
+        return noTelepon;
     }
 
     public void setNoTelepon(String noTelepon) {
         this.noTelepon = noTelepon;
     }
 
+    public String getPeran() {
+        return peran;
+    }
+
     public void setPeran(String peran) {
         this.peran = peran;
+    }
+
+    public String getStatusAktif() {
+        return statusAktif;
     }
 
     public void setStatusAktif(String statusAktif) {
