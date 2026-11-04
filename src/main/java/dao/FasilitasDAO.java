@@ -12,7 +12,7 @@ import java.util.List;
 
 public class FasilitasDAO {
 
-    // READ: Mengambil seluruh data fasilitas
+    // READ
     public List<Fasilitas> getAllFasilitas() {
         List<Fasilitas> daftar = new ArrayList<>();
 
@@ -37,7 +37,7 @@ public class FasilitasDAO {
         return daftar;
     }
 
-    // CREATE: Menambahkan fasilitas
+    // CREATE
     public boolean tambahFasilitas(Fasilitas fasilitas) {
         if (!validasiFasilitas(fasilitas)) {
             return false;
@@ -69,7 +69,7 @@ public class FasilitasDAO {
         }
     }
 
-    // UPDATE: Memperbarui fasilitas
+    // UPDATE
     public boolean updateFasilitas(Fasilitas fasilitas) {
         if (fasilitas == null || fasilitas.getIdFasilitas() <= 0
                 || !validasiFasilitas(fasilitas)) {
@@ -102,7 +102,7 @@ public class FasilitasDAO {
         }
     }
 
-    // DELETE: Menghapus fasilitas yang belum memiliki laporan
+    // DELETE
     public boolean hapusFasilitas(int idFasilitas) {
         if (idFasilitas <= 0) {
             return false;
@@ -132,7 +132,7 @@ public class FasilitasDAO {
         }
     }
 
-    // SEARCH: Mencari fasilitas
+    // SEARCH
     public List<Fasilitas> searchFasilitas(String keyword) {
         List<Fasilitas> daftar = new ArrayList<>();
 
