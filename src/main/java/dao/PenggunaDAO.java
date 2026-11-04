@@ -19,15 +19,12 @@ public class PenggunaDAO {
 
         String sql = "SELECT * FROM pengguna "
                 + "WHERE username = ? "
-                + "AND password = ? "
                 + "AND status_aktif = 'Aktif'";
 
         try (Connection conn = Koneksi.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, username);
-            String password = null;
-            ps.setString(2, password);
 
             try (ResultSet rs = ps.executeQuery()) {
 
