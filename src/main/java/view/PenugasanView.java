@@ -1,18 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view;
 
-/**
- *
- * @author MSi-
- */
-public class PenugasanView extends javax.swing.JPanel {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import model.Fasilitas;
+import model.LaporanKerusakan;
+import model.Penugasan;
+import dao.PenggunaDAO;
+import view.table.PilihanTableModel;
+import view.table.RendererTabel;
 
-    /**
-     * Creates new form PenugasanView
-     */
+/**
+ * Form AEROCARE: Penugasan Laporan.
+ *
+ * @author Kelompok 7
+ */
+public class PenugasanView extends javax.swing.JPanel implements view.util.HalamanAeroCare {
+
+    /** Creates new form PenugasanView */
     public PenugasanView() {
         initComponents();
     }
@@ -26,19 +32,370 @@ public class PenugasanView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setBackground(new java.awt.Color(241, 245, 249));
+        setLayout(null);
+
+        lblJudul = new javax.swing.JLabel();
+        lblJudul.setFont(view.util.Theme.bold(24f));
+        lblJudul.setForeground(view.util.Theme.TEXT);
+        lblJudul.setText("Penugasan Laporan ke Petugas");
+        add(lblJudul);
+        lblJudul.setBounds(34, 26, 900, 34);
+
+        lblSubJudul = new javax.swing.JLabel();
+        lblSubJudul.setFont(view.util.Theme.regular(13f));
+        lblSubJudul.setForeground(view.util.Theme.TEXT_MUTED);
+        lblSubJudul.setText("Pilih satu laporan menunggu, lalu pilih satu atau lebih petugas aktif");
+        add(lblSubJudul);
+        lblSubJudul.setBounds(34, 58, 900, 20);
+
+        panelLaporan = new view.util.RoundedPanel(14);
+        panelLaporan.setLatar(new java.awt.Color(255, 255, 255));
+        add(panelLaporan);
+        panelLaporan.setBounds(34, 156, 480, 396);
+
+        lblJudulLaporan = new javax.swing.JLabel();
+        lblJudulLaporan.setFont(view.util.Theme.bold(15.0f));
+        lblJudulLaporan.setForeground(view.util.Theme.TEXT);
+        lblJudulLaporan.setText("1. Laporan Menunggu Penugasan");
+        panelLaporan.add(lblJudulLaporan);
+        lblJudulLaporan.setBounds(22, 18, 430, 24);
+
+        tabelLaporan = new javax.swing.JTable();
+        tabelLaporan.setBounds(0, 0, 436, 320);
+        scrollLaporan = new javax.swing.JScrollPane();
+        scrollLaporan.setBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0));
+        scrollLaporan.setViewportView(tabelLaporan);
+        panelLaporan.add(scrollLaporan);
+        scrollLaporan.setBounds(22, 56, 436, 320);
+
+        panelPetugas = new view.util.RoundedPanel(14);
+        panelPetugas.setLatar(new java.awt.Color(255, 255, 255));
+        add(panelPetugas);
+        panelPetugas.setBounds(530, 156, 602, 396);
+
+        lblJudulPetugas = new javax.swing.JLabel();
+        lblJudulPetugas.setFont(view.util.Theme.bold(15.0f));
+        lblJudulPetugas.setForeground(view.util.Theme.TEXT);
+        lblJudulPetugas.setText("2. Petugas Aktif");
+        panelPetugas.add(lblJudulPetugas);
+        lblJudulPetugas.setBounds(22, 18, 430, 24);
+
+        tabelPetugas = new javax.swing.JTable();
+        tabelPetugas.setBounds(0, 0, 558, 320);
+        scrollPetugas = new javax.swing.JScrollPane();
+        scrollPetugas.setBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0));
+        scrollPetugas.setViewportView(tabelPetugas);
+        panelPetugas.add(scrollPetugas);
+        scrollPetugas.setBounds(22, 56, 558, 320);
+
+        panelCatatan = new view.util.RoundedPanel(14);
+        panelCatatan.setLatar(new java.awt.Color(255, 255, 255));
+        add(panelCatatan);
+        panelCatatan.setBounds(34, 568, 1098, 184);
+
+        lblJudulCatatan = new javax.swing.JLabel();
+        lblJudulCatatan.setFont(view.util.Theme.bold(15.0f));
+        lblJudulCatatan.setForeground(view.util.Theme.TEXT);
+        lblJudulCatatan.setText("3. Catatan Penugasan");
+        panelCatatan.add(lblJudulCatatan);
+        lblJudulCatatan.setBounds(22, 18, 420, 24);
+
+        lblCatatan = new javax.swing.JLabel();
+        lblCatatan.setFont(view.util.Theme.regular(12.0f));
+        lblCatatan.setForeground(view.util.Theme.TEXT_MUTED);
+        lblCatatan.setText("Catatan (opsional, maks. 150 karakter)");
+        panelCatatan.add(lblCatatan);
+        lblCatatan.setBounds(22, 50, 500, 16);
+
+        txtCatatan = new view.util.UiKit.RoundedTextArea();
+        txtCatatan.setPlaceholder("Contoh: Periksa motor penggerak dan sabuk eskalator");
+        txtCatatan.setRows(3);
+        panelCatatan.add(txtCatatan);
+        txtCatatan.setBounds(22, 70, 1054, 64);
+
+        tombolBatal = new view.util.RoundedButton("Batal", view.util.RoundedButton.Gaya.SEKUNDER, view.util.Theme.SUPERVISOR);
+        panelCatatan.add(tombolBatal);
+        tombolBatal.setBounds(22, 130, 100, 38);
+
+        tombolBuat = new view.util.RoundedButton("Buat Penugasan", view.util.RoundedButton.Gaya.PRIMER, view.util.Theme.SUPERVISOR);
+        panelCatatan.add(tombolBuat);
+        tombolBuat.setBounds(134, 130, 180, 38);
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lblJudul;
+    private javax.swing.JLabel lblSubJudul;
+    private view.util.RoundedPanel panelLaporan;
+    private javax.swing.JLabel lblJudulLaporan;
+    private javax.swing.JScrollPane scrollLaporan;
+    private javax.swing.JTable tabelLaporan;
+    private view.util.RoundedPanel panelPetugas;
+    private javax.swing.JLabel lblJudulPetugas;
+    private javax.swing.JScrollPane scrollPetugas;
+    private javax.swing.JTable tabelPetugas;
+    private view.util.RoundedPanel panelCatatan;
+    private javax.swing.JLabel lblJudulCatatan;
+    private javax.swing.JLabel lblCatatan;
+    private view.util.UiKit.RoundedTextArea txtCatatan;
+    private view.util.RoundedButton tombolBatal;
+    private view.util.RoundedButton tombolBuat;
     // End of variables declaration//GEN-END:variables
+
+    // ---------- Kode pendukung tampilan (boleh disunting) ----------
+
+    private static final int BATAS_CATATAN = 150;
+
+    private final PilihanTableModel modelLaporan
+            = new PilihanTableModel(false, "Fasilitas", "Lokasi", "Prioritas");
+    private final PilihanTableModel modelPetugas
+            = new PilihanTableModel(true, "Nama", "Spesialisasi", "Shift",
+                    "Peran");
+    private final List<LaporanKerusakan> daftarLaporan = new ArrayList<>();
+    private final List<PenggunaDAO.PetugasAktif> daftarPetugas
+            = new ArrayList<>();
+    private boolean siap;
+
+    private void siapkanTabel() {
+        // --- tabel laporan menunggu (pilihan tunggal) ---
+        view.util.UiKit.siapkanTabel(tabelLaporan);
+        tabelLaporan.setModel(modelLaporan);
+        tabelLaporan.setRowHeight(48);
+
+        RendererTabel.Pilih pilihLaporan
+                = new RendererTabel.Pilih(false, view.util.Theme.SUPERVISOR);
+        pilihLaporan.setTerpilih(modelLaporan::dipilih);
+        kunciKolomPilih(tabelLaporan, pilihLaporan);
+        tabelLaporan.getColumnModel().getColumn(1)
+                .setCellRenderer(new RendererTabel.Utama());
+        tabelLaporan.getColumnModel().getColumn(2)
+                .setCellRenderer(new RendererTabel.TeksRedup());
+        tabelLaporan.getColumnModel().getColumn(3)
+                .setCellRenderer(new RendererTabel.Lencana());
+
+        int[] lebarLaporan = {44, 190, 130, 100};
+        for (int i = 0; i < lebarLaporan.length; i++) {
+            tabelLaporan.getColumnModel().getColumn(i)
+                    .setPreferredWidth(lebarLaporan[i]);
+        }
+        tabelLaporan.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int baris = tabelLaporan.rowAtPoint(e.getPoint());
+                if (baris < 0 || baris >= modelLaporan.getRowCount()) {
+                    return;
+                }
+                modelLaporan.pilih(baris);
+            }
+        });
+
+        // --- tabel petugas aktif (pilihan banyak) ---
+        view.util.UiKit.siapkanTabel(tabelPetugas);
+        tabelPetugas.setModel(modelPetugas);
+        tabelPetugas.setRowHeight(48);
+
+        RendererTabel.Pilih pilihPetugas
+                = new RendererTabel.Pilih(true, view.util.Theme.SUPERVISOR);
+        pilihPetugas.setTerpilih(modelPetugas::dipilih);
+        kunciKolomPilih(tabelPetugas, pilihPetugas);
+        tabelPetugas.getColumnModel().getColumn(1)
+                .setCellRenderer(new RendererTabel.Utama());
+        tabelPetugas.getColumnModel().getColumn(2)
+                .setCellRenderer(new RendererTabel.TeksRedup());
+        tabelPetugas.getColumnModel().getColumn(3)
+                .setCellRenderer(new RendererTabel.TeksRedup());
+        tabelPetugas.getColumnModel().getColumn(4)
+                .setCellRenderer(new RendererTabel.Lencana());
+
+        int[] lebarPetugas = {44, 190, 130, 90, 130};
+        for (int i = 0; i < lebarPetugas.length; i++) {
+            tabelPetugas.getColumnModel().getColumn(i)
+                    .setPreferredWidth(lebarPetugas[i]);
+        }
+        tabelPetugas.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int baris = tabelPetugas.rowAtPoint(e.getPoint());
+                if (baris < 0 || baris >= modelPetugas.getRowCount()) {
+                    return;
+                }
+                modelPetugas.pilih(baris);
+                perbaruiPeranPetugas();
+            }
+        });
+
+        tombolBatal.addActionListener(e -> selesai());
+        tombolBuat.addActionListener(e -> simpan());
+    }
+
+    private void kunciKolomPilih(javax.swing.JTable tabel,
+            RendererTabel.Pilih renderer) {
+        javax.swing.table.TableColumn kolom
+                = tabel.getColumnModel().getColumn(0);
+        kolom.setMinWidth(44);
+        kolom.setMaxWidth(44);
+        kolom.setCellRenderer(renderer);
+    }
+
+    /**
+     * Petugas pertama yang dipilih berperan sebagai petugas utama, sisanya
+     * pendamping. Kolom Peran diperbarui agar sesuai urutan pemilihan.
+     */
+    private void perbaruiPeranPetugas() {
+        List<Integer> terpilih = modelPetugas.indeksTerpilihSemua();
+
+        List<Object[]> isi = new ArrayList<>();
+        for (int i = 0; i < daftarPetugas.size(); i++) {
+            PenggunaDAO.PetugasAktif p = daftarPetugas.get(i);
+            String peran = "-";
+            if (!terpilih.isEmpty() && terpilih.get(0) == i) {
+                peran = "Utama";
+            } else if (terpilih.contains(i)) {
+                peran = "Pendamping";
+            }
+            isi.add(new Object[]{p.getNamaLengkap(), p.getSpesialisasi(),
+                p.getShiftKerja(), peran});
+        }
+
+        modelPetugas.setIsi(isi);
+        modelPetugas.setPilihTetap(terpilih);
+    }
+
+    private void selesai() {
+        java.awt.Window jendela
+                = javax.swing.SwingUtilities.getWindowAncestor(this);
+        if (jendela instanceof MainFrame) {
+            ((MainFrame) jendela).kembali();
+        }
+    }
+
+    @Override
+    public String judul() {
+        return "Penugasan Laporan";
+    }
+
+    @Override
+    public void muatData() {
+        if (!siap) {
+            siap = true;
+            siapkanTabel();
+        }
+
+        Map<Integer, String[]> fasilitasPerId = new HashMap<>();
+        for (Fasilitas f : new dao.FasilitasDAO().getAllFasilitas()) {
+            fasilitasPerId.put(f.getIdFasilitas(), new String[]{
+                f.getNamaFasilitas(),
+                f.getLokasi() == null ? "-" : f.getLokasi()});
+        }
+
+        daftarLaporan.clear();
+        List<Object[]> barisLaporan = new ArrayList<>();
+        for (LaporanKerusakan l
+                : new dao.LaporanKerusakanDAO().getAllLaporan()) {
+            if (!"Menunggu".equals(l.getStatus())) {
+                continue;
+            }
+            daftarLaporan.add(l);
+            String[] f = fasilitasPerId.getOrDefault(
+                    l.getFasilitasIdFasilitas(), new String[]{"-", "-"});
+            barisLaporan.add(new Object[]{f[0], f[1], l.getPrioritas()});
+        }
+        modelLaporan.setData(daftarLaporan, barisLaporan);
+
+        daftarPetugas.clear();
+        daftarPetugas.addAll(new dao.PenggunaDAO().getPetugasAktif());
+
+        List<Object[]> isiPetugas = new ArrayList<>();
+        for (PenggunaDAO.PetugasAktif p : daftarPetugas) {
+            isiPetugas.add(new Object[]{p.getNamaLengkap(), p.getSpesialisasi(),
+                p.getShiftKerja(), "-"});
+        }
+        modelPetugas.setData(daftarPetugas, isiPetugas);
+
+        lblJudulLaporan.setText(daftarLaporan.isEmpty()
+                ? "1. Laporan Menunggu Penugasan  -  tidak ada"
+                : "1. Laporan Menunggu Penugasan  -  "
+                  + daftarLaporan.size() + " laporan");
+        lblJudulPetugas.setText(daftarPetugas.isEmpty()
+                ? "2. Petugas Aktif  -  belum ada petugas aktif"
+                : "2. Petugas Aktif  -  " + daftarPetugas.size() + " orang");
+    }
+
+    private void simpan() {
+        int barisLaporan = modelLaporan.indeksTerpilih();
+        if (barisLaporan < 0) {
+            pesan("Pilih satu laporan yang akan ditugaskan.");
+            return;
+        }
+        List<Integer> terpilih = modelPetugas.indeksTerpilihSemua();
+        if (terpilih.isEmpty()) {
+            pesan("Pilih minimal satu petugas untuk menangani laporan ini.");
+            return;
+        }
+
+        String catatan = txtCatatan.getText().trim();
+        if (catatan.length() > BATAS_CATATAN) {
+            pesan("Catatan penugasan maksimal " + BATAS_CATATAN
+                    + " karakter.");
+            return;
+        }
+
+        Penugasan penugasan = new Penugasan();
+        penugasan.setWaktuPenugasan(
+                new java.sql.Date(System.currentTimeMillis()));
+        penugasan.setCatatanPenugasan(catatan);
+        penugasan.setSupervisorIdPengguna(view.util.Session.id());
+        penugasan.setLaporanIdLaporan(
+                daftarLaporan.get(barisLaporan).getIdLaporan());
+
+        List<Integer> idPetugas = new ArrayList<>();
+        for (int indeks : terpilih) {
+            idPetugas.add(daftarPetugas.get(indeks).getIdPengguna());
+        }
+
+        if (!new dao.PenugasanDAO().tambahPenugasan(penugasan, idPetugas)) {
+            pesan("Penugasan gagal disimpan. Periksa kembali pilihan Anda.");
+            return;
+        }
+
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "Penugasan berhasil dibuat untuk " + idPetugas.size()
+                + " petugas.",
+                "Tersimpan", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        selesai();
+    }
+
+    private void pesan(String teks) {
+        javax.swing.JOptionPane.showMessageDialog(this, teks, "Periksa Isian",
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+    }
+
+    @Override
+    public void sesuaikanUkuran(int lebar, int tinggi) {
+        int isi = Math.max(620, lebar - 68);
+        int celah = 16;
+        int lebarKiri = (isi - celah) / 2;
+        int lebarKanan = isi - lebarKiri - celah;
+        int xKanan = 34 + lebarKiri + celah;
+
+        int tinggiCatatan = 244;
+        // Panel judul memakai 156 px di atas; sisanya untuk kartu tabel,
+        // kartu catatan, dan jeda bawah 16 px.
+        int tinggiAtas = Math.max(180, tinggi - 156 - tinggiCatatan - celah
+                - 16);
+
+        panelLaporan.setBounds(34, 156, lebarKiri, tinggiAtas);
+        scrollLaporan.setBounds(22, 56, lebarKiri - 44, tinggiAtas - 76);
+        tabelLaporan.setBounds(0, 0, lebarKiri - 44, tinggiAtas - 76);
+
+        panelPetugas.setBounds(xKanan, 156, lebarKanan, tinggiAtas);
+        scrollPetugas.setBounds(22, 56, lebarKanan - 44, tinggiAtas - 76);
+        tabelPetugas.setBounds(0, 0, lebarKanan - 44, tinggiAtas - 76);
+
+        int yCatatan = 156 + tinggiAtas + celah;
+        panelCatatan.setBounds(34, yCatatan, isi, tinggiCatatan);
+        txtCatatan.setBounds(22, 70, isi - 44, 76);
+        tombolBatal.setBounds(22, tinggiCatatan - 56, 100, 38);
+        tombolBuat.setBounds(134, tinggiCatatan - 56, 180, 38);
+    }
 }

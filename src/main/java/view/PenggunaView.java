@@ -1,18 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view;
 
-/**
- *
- * @author MSi-
- */
-public class PenggunaView extends javax.swing.JPanel {
+import java.util.ArrayList;
+import java.util.List;
+import view.table.PenggunaTableModel;
+import view.table.RendererTabel;
 
-    /**
-     * Creates new form PenggunaView
-     */
+/**
+ * Form AEROCARE: Kelola Data Pengguna.
+ *
+ * @author Kelompok 7
+ */
+public class PenggunaView extends javax.swing.JPanel implements view.util.HalamanAeroCare {
+
+    /** Creates new form PenggunaView */
     public PenggunaView() {
         initComponents();
     }
@@ -26,19 +26,240 @@ public class PenggunaView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setBackground(new java.awt.Color(241, 245, 249));
+        setLayout(null);
+
+        lblJudul = new javax.swing.JLabel();
+        lblJudul.setFont(view.util.Theme.bold(24f));
+        lblJudul.setForeground(view.util.Theme.TEXT);
+        lblJudul.setText("Kelola Data Pengguna");
+        add(lblJudul);
+        lblJudul.setBounds(34, 26, 900, 34);
+
+        lblSubJudul = new javax.swing.JLabel();
+        lblSubJudul.setFont(view.util.Theme.regular(13f));
+        lblSubJudul.setForeground(view.util.Theme.TEXT_MUTED);
+        lblSubJudul.setText("Tambah, lihat, ubah, serta aktifkan / nonaktifkan pengguna");
+        add(lblSubJudul);
+        lblSubJudul.setBounds(34, 58, 900, 20);
+
+        txtCari = new view.util.RoundedTextField();
+        txtCari.setPlaceholder("Cari nama atau username...");
+        txtCari.setWarnaGarisFokus(view.util.Theme.ADMIN);
+        add(txtCari);
+        txtCari.setBounds(34, 96, 420, 38);
+
+        tombolTambah = new view.util.RoundedButton("+  Tambah Pengguna", view.util.RoundedButton.Gaya.PRIMER, view.util.Theme.ADMIN);
+        add(tombolTambah);
+        tombolTambah.setBounds(900, 96, 200, 38);
+
+        panelTabel = new view.util.RoundedPanel(14);
+        panelTabel.setLatar(new java.awt.Color(255, 255, 255));
+        add(panelTabel);
+        panelTabel.setBounds(34, 152, 1098, 470);
+
+        tabelPengguna = new javax.swing.JTable();
+        tabelPengguna.setBounds(0, 0, 1054, 434);
+        scrollPengguna = new javax.swing.JScrollPane();
+        scrollPengguna.setBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0));
+        scrollPengguna.setViewportView(tabelPengguna);
+        panelTabel.add(scrollPengguna);
+        scrollPengguna.setBounds(22, 18, 1054, 434);
+
+        lblJumlah = new javax.swing.JLabel();
+        lblJumlah.setFont(view.util.Theme.regular(11.5f));
+        lblJumlah.setForeground(view.util.Theme.TEXT_FAINT);
+        lblJumlah.setText("Menampilkan 0 dari 0 pengguna");
+        add(lblJumlah);
+        lblJumlah.setBounds(34, 634, 600, 18);
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lblJudul;
+    private javax.swing.JLabel lblSubJudul;
+    private view.util.RoundedTextField txtCari;
+    private view.util.RoundedButton tombolTambah;
+    private view.util.RoundedPanel panelTabel;
+    private javax.swing.JScrollPane scrollPengguna;
+    private javax.swing.JTable tabelPengguna;
+    private javax.swing.JLabel lblJumlah;
     // End of variables declaration//GEN-END:variables
+
+    // ---------- Kode pendukung tampilan (boleh disunting) ----------
+
+    private final PenggunaTableModel modelTabel = new PenggunaTableModel();
+    private List<model.Pengguna> dataLengkap = new ArrayList<>();
+    private boolean tabelSiap;
+
+    private void siapkanTabel() {
+        tabelPengguna.setModel(modelTabel);
+        view.util.UiKit.siapkanTabel(tabelPengguna);
+        tabelPengguna.setRowHeight(48);
+
+        int[] lebar = {70, 190, 150, 110, 90, 230, 160};
+        for (int i = 0; i < lebar.length; i++) {
+            tabelPengguna.getColumnModel().getColumn(i)
+                    .setPreferredWidth(lebar[i]);
+        }
+        tabelPengguna.getColumnModel().getColumn(0)
+                .setCellRenderer(new RendererTabel.Id());
+        tabelPengguna.getColumnModel().getColumn(1)
+                .setCellRenderer(new RendererTabel.Utama());
+        tabelPengguna.getColumnModel().getColumn(2)
+                .setCellRenderer(new RendererTabel.TeksRedup());
+        tabelPengguna.getColumnModel().getColumn(3)
+                .setCellRenderer(new RendererTabel.Teks());
+        tabelPengguna.getColumnModel().getColumn(4)
+                .setCellRenderer(new RendererTabel.Lencana());
+        tabelPengguna.getColumnModel().getColumn(5)
+                .setCellRenderer(new RendererTabel.TeksRedup());
+        tabelPengguna.getColumnModel().getColumn(6)
+                .setCellRenderer(new RendererTabel.Aksi("Ubah", "Nonaktifkan"));
+
+        tabelPengguna.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int baris = tabelPengguna.rowAtPoint(e.getPoint());
+                int kolom = tabelPengguna.columnAtPoint(e.getPoint());
+                if (baris < 0 || kolom != 6
+                        || baris >= modelTabel.getRowCount()) {
+                    return;
+                }
+                int geser = e.getX()
+                        - tabelPengguna.getCellRect(baris, kolom, true).x;
+                model.Pengguna p = modelTabel.get(baris);
+                if (geser < 78) {
+                    bukaForm(p);
+                } else {
+                    ubahStatus(p);
+                }
+            }
+        });
+
+        txtCari.getDocument().addDocumentListener(
+                new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                saring();
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                saring();
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                saring();
+            }
+        });
+
+        tombolTambah.addActionListener(e -> bukaForm(null));
+    }
+
+    @Override
+    public String judul() {
+        return "Kelola Pengguna";
+    }
+
+    @Override
+    public void muatData() {
+        if (!tabelSiap) {
+            tabelSiap = true;
+            siapkanTabel();
+        }
+        dataLengkap = new dao.PenggunaDAO().getAllPengguna();
+        tampilkan(dataLengkap);
+    }
+
+    private void tampilkan(List<model.Pengguna> daftar) {
+        List<String> khusus = new ArrayList<>();
+        for (model.Pengguna p : daftar) {
+            khusus.add(keteranganPeran(p));
+        }
+        modelTabel.setData(daftar, khusus);
+        lblJumlah.setText("Menampilkan " + daftar.size() + " dari "
+                + dataLengkap.size() + " pengguna");
+    }
+
+    private String keteranganPeran(model.Pengguna p) {
+        String peran = p.getPeran() == null ? "" : p.getPeran();
+        if ("Admin".equalsIgnoreCase(peran)) {
+            return "Hak akses: Penuh";
+        }
+        if ("Supervisor".equalsIgnoreCase(peran)) {
+            return "Area pengawasan";
+        }
+        return "Spesialisasi";
+    }
+
+    private void saring() {
+        String kunci = txtCari.getText().trim().toLowerCase();
+        if (kunci.isEmpty()) {
+            tampilkan(dataLengkap);
+            return;
+        }
+        List<model.Pengguna> hasil = new ArrayList<>();
+        for (model.Pengguna p : dataLengkap) {
+            String nama = p.getNamaLengkap() == null
+                    ? "" : p.getNamaLengkap().toLowerCase();
+            String user = p.getUsername() == null
+                    ? "" : p.getUsername().toLowerCase();
+            if (nama.contains(kunci) || user.contains(kunci)) {
+                hasil.add(p);
+            }
+        }
+        tampilkan(hasil);
+    }
+
+    private void bukaForm(model.Pengguna p) {
+        java.awt.Window jendela
+                = javax.swing.SwingUtilities.getWindowAncestor(this);
+        if (jendela instanceof MainFrame) {
+            ((MainFrame) jendela).bukaForm(
+                    p == null ? "Tambah Pengguna" : "Ubah Pengguna",
+                    new FormPengguna(p));
+        }
+    }
+
+    private void ubahStatus(model.Pengguna p) {
+        boolean aktif = "Aktif".equalsIgnoreCase(p.getStatusAktif());
+        String statusBaru = aktif ? "Tidak Aktif" : "Aktif";
+        String pesan = aktif
+                ? "Akun " + p.getNamaLengkap() + " (" + p.getUsername()
+                  + ") tidak akan bisa login sampai diaktifkan kembali."
+                : "Akun " + p.getNamaLengkap() + " (" + p.getUsername()
+                  + ") akan dapat login kembali.";
+        int pilih = javax.swing.JOptionPane.showConfirmDialog(this,
+                pesan + " Lanjutkan?",
+                aktif ? "Nonaktifkan pengguna?" : "Aktifkan pengguna?",
+                javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.QUESTION_MESSAGE);
+        if (pilih != javax.swing.JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        boolean berhasil = new dao.PenggunaDAO().updatePengguna(
+                p.getIdPengguna(), p.getNamaLengkap(), p.getUsername(),
+                p.getPassword(), p.getEmail(), p.getNoTelepon(), statusBaru,
+                "-", "-");
+        if (!berhasil) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Status pengguna gagal diubah.", "Gagal",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        muatData();
+    }
+
+    @Override
+    public void sesuaikanUkuran(int lebar, int tinggi) {
+        int isi = Math.max(600, lebar - 68);
+        txtCari.setBounds(34, 96, Math.min(420, isi - 250), 38);
+        tombolTambah.setBounds(34 + isi - 200, 96, 200, 38);
+        int tinggiKartu = Math.max(260, tinggi - 226);
+        panelTabel.setBounds(34, 152, isi, tinggiKartu);
+        scrollPengguna.setBounds(22, 18, isi - 44, tinggiKartu - 36);
+        tabelPengguna.setBounds(0, 0, isi - 44, tinggiKartu - 36);
+        lblJumlah.setBounds(34, 152 + tinggiKartu + 10, 600, 18);
+    }
 }

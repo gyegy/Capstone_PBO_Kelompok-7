@@ -12,17 +12,195 @@
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
   </AuxValues>
-
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="1200" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="300" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="760" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
+  <SubComponents>
+      <Component class="javax.swing.JLabel" name="lblJudul">
+        <Constraints>
+          <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.support.AbsoluteConstraintsSupport">
+            <Value n="x" type="int" value="34"/>
+            <Value n="y" type="int" value="26"/>
+            <Value n="width" type="int" value="900"/>
+            <Value n="height" type="int" value="34"/>
+          </Constraint>
+        </Constraints>
+        <Property name="font" type="java.lang.String" value="view.util.Theme.bold(24f)"/>
+        <Property name="foreground" type="java.lang.String" value="view.util.Theme.TEXT"/>
+        <Property name="text" type="java.lang.String" value="Penugasan Laporan ke Petugas"/>
+      </Component>
+      <Component class="javax.swing.JLabel" name="lblSubJudul">
+        <Constraints>
+          <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.support.AbsoluteConstraintsSupport">
+            <Value n="x" type="int" value="34"/>
+            <Value n="y" type="int" value="58"/>
+            <Value n="width" type="int" value="900"/>
+            <Value n="height" type="int" value="20"/>
+          </Constraint>
+        </Constraints>
+        <Property name="font" type="java.lang.String" value="view.util.Theme.regular(13f)"/>
+        <Property name="foreground" type="java.lang.String" value="view.util.Theme.TEXT_MUTED"/>
+        <Property name="text" type="java.lang.String" value="Pilih satu laporan menunggu, lalu pilih satu atau lebih petugas aktif"/>
+      </Component>
+      <Component class="view.util.RoundedPanel" name="panelLaporan">
+        <Constraints>
+          <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.support.AbsoluteConstraintsSupport">
+            <Value n="x" type="int" value="34"/>
+            <Value n="y" type="int" value="156"/>
+            <Value n="width" type="int" value="480"/>
+            <Value n="height" type="int" value="396"/>
+          </Constraint>
+        </Constraints>
+        <Property name="latar" type="java.awt.Color" value="255, 255, 255"/>
+        <SubComponents>
+          <Component class="javax.swing.JLabel" name="lblJudulLaporan">
+            <Constraints>
+              <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.support.AbsoluteConstraintsSupport">
+                <Value n="x" type="int" value="22"/>
+                <Value n="y" type="int" value="18"/>
+                <Value n="width" type="int" value="430"/>
+                <Value n="height" type="int" value="24"/>
+              </Constraint>
+            </Constraints>
+            <Property name="font" type="java.lang.String" value="view.util.Theme.bold(15.0f)"/>
+            <Property name="foreground" type="java.lang.String" value="view.util.Theme.TEXT"/>
+            <Property name="text" type="java.lang.String" value="1. Laporan Menunggu Penugasan"/>
+          </Component>
+          <Component class="javax.swing.JScrollPane" name="scrollLaporan">
+            <Constraints>
+              <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.support.AbsoluteConstraintsSupport">
+                <Value n="x" type="int" value="22"/>
+                <Value n="y" type="int" value="56"/>
+                <Value n="width" type="int" value="436"/>
+                <Value n="height" type="int" value="320"/>
+              </Constraint>
+            </Constraints>
+            <Property name="border" type="javax.swing.border.Border" value="0, 0, 0, 0"/>
+            <Property name="viewportView" type="java.awt.Component">
+              <Component ref="tabelLaporan"/>
+            </Property>
+          </Component>
+        </SubComponents>
+      </Component>
+      <Component class="view.util.RoundedPanel" name="panelPetugas">
+        <Constraints>
+          <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.support.AbsoluteConstraintsSupport">
+            <Value n="x" type="int" value="530"/>
+            <Value n="y" type="int" value="156"/>
+            <Value n="width" type="int" value="602"/>
+            <Value n="height" type="int" value="396"/>
+          </Constraint>
+        </Constraints>
+        <Property name="latar" type="java.awt.Color" value="255, 255, 255"/>
+        <SubComponents>
+          <Component class="javax.swing.JLabel" name="lblJudulPetugas">
+            <Constraints>
+              <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.support.AbsoluteConstraintsSupport">
+                <Value n="x" type="int" value="22"/>
+                <Value n="y" type="int" value="18"/>
+                <Value n="width" type="int" value="430"/>
+                <Value n="height" type="int" value="24"/>
+              </Constraint>
+            </Constraints>
+            <Property name="font" type="java.lang.String" value="view.util.Theme.bold(15.0f)"/>
+            <Property name="foreground" type="java.lang.String" value="view.util.Theme.TEXT"/>
+            <Property name="text" type="java.lang.String" value="2. Petugas Aktif"/>
+          </Component>
+          <Component class="javax.swing.JScrollPane" name="scrollPetugas">
+            <Constraints>
+              <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.support.AbsoluteConstraintsSupport">
+                <Value n="x" type="int" value="22"/>
+                <Value n="y" type="int" value="56"/>
+                <Value n="width" type="int" value="558"/>
+                <Value n="height" type="int" value="320"/>
+              </Constraint>
+            </Constraints>
+            <Property name="border" type="javax.swing.border.Border" value="0, 0, 0, 0"/>
+            <Property name="viewportView" type="java.awt.Component">
+              <Component ref="tabelPetugas"/>
+            </Property>
+          </Component>
+        </SubComponents>
+      </Component>
+      <Component class="view.util.RoundedPanel" name="panelCatatan">
+        <Constraints>
+          <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.support.AbsoluteConstraintsSupport">
+            <Value n="x" type="int" value="34"/>
+            <Value n="y" type="int" value="568"/>
+            <Value n="width" type="int" value="1098"/>
+            <Value n="height" type="int" value="184"/>
+          </Constraint>
+        </Constraints>
+        <Property name="latar" type="java.awt.Color" value="255, 255, 255"/>
+        <SubComponents>
+          <Component class="javax.swing.JLabel" name="lblJudulCatatan">
+            <Constraints>
+              <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.support.AbsoluteConstraintsSupport">
+                <Value n="x" type="int" value="22"/>
+                <Value n="y" type="int" value="18"/>
+                <Value n="width" type="int" value="420"/>
+                <Value n="height" type="int" value="24"/>
+              </Constraint>
+            </Constraints>
+            <Property name="font" type="java.lang.String" value="view.util.Theme.bold(15.0f)"/>
+            <Property name="foreground" type="java.lang.String" value="view.util.Theme.TEXT"/>
+            <Property name="text" type="java.lang.String" value="3. Catatan Penugasan"/>
+          </Component>
+          <Component class="javax.swing.JLabel" name="lblCatatan">
+            <Constraints>
+              <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.support.AbsoluteConstraintsSupport">
+                <Value n="x" type="int" value="22"/>
+                <Value n="y" type="int" value="50"/>
+                <Value n="width" type="int" value="500"/>
+                <Value n="height" type="int" value="16"/>
+              </Constraint>
+            </Constraints>
+            <Property name="font" type="java.lang.String" value="view.util.Theme.regular(12.0f)"/>
+            <Property name="foreground" type="java.lang.String" value="view.util.Theme.TEXT_MUTED"/>
+            <Property name="text" type="java.lang.String" value="Catatan (opsional, maks. 150 karakter)"/>
+          </Component>
+          <Component class="view.util.UiKit.RoundedTextArea" name="txtCatatan">
+            <Constraints>
+              <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.support.AbsoluteConstraintsSupport">
+                <Value n="x" type="int" value="22"/>
+                <Value n="y" type="int" value="70"/>
+                <Value n="width" type="int" value="1054"/>
+                <Value n="height" type="int" value="64"/>
+              </Constraint>
+            </Constraints>
+            <Property name="placeholder" type="java.lang.String" value="Contoh: Periksa motor penggerak dan sabuk eskalator"/>
+            <Property name="rows" type="int" value="3"/>
+          </Component>
+          <Component class="view.util.RoundedButton" name="tombolBatal">
+            <Constraints>
+              <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.support.AbsoluteConstraintsSupport">
+                <Value n="x" type="int" value="22"/>
+                <Value n="y" type="int" value="130"/>
+                <Value n="width" type="int" value="100"/>
+                <Value n="height" type="int" value="38"/>
+              </Constraint>
+            </Constraints>
+          </Component>
+          <Component class="view.util.RoundedButton" name="tombolBuat">
+            <Constraints>
+              <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.support.AbsoluteConstraintsSupport">
+                <Value n="x" type="int" value="134"/>
+                <Value n="y" type="int" value="130"/>
+                <Value n="width" type="int" value="180"/>
+                <Value n="height" type="int" value="38"/>
+              </Constraint>
+            </Constraints>
+          </Component>
+        </SubComponents>
+      </Component>
+  </SubComponents>
 </Form>

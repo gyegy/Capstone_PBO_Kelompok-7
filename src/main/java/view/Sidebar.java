@@ -1,20 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view;
 
+import java.awt.Color;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Consumer;
+
 /**
+ * Form AEROCARE: Sidebar.
  *
- * @author MSi-
+ * @author Kelompok 7
  */
 public class Sidebar extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Sidebar
-     */
+
+    /** Creates new form Sidebar */
     public Sidebar() {
         initComponents();
+        susunMenu();
+        terapkanPeran("Admin");
     }
 
     /**
@@ -26,19 +29,162 @@ public class Sidebar extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setBackground(view.util.Theme.SIDEBAR);
+        setLayout(null);
+
+        logoPanel = new view.util.MerekAero();
+        add(logoPanel);
+        logoPanel.setBounds(20, 22, 34, 34);
+
+        lblMerek = new javax.swing.JLabel();
+        lblMerek.setFont(view.util.Theme.bold(14.5f));
+        lblMerek.setForeground(new java.awt.Color(255, 255, 255));
+        lblMerek.setText("AEROCARE");
+        add(lblMerek);
+        lblMerek.setBounds(64, 23, 160, 20);
+
+        lblSubMerek = new javax.swing.JLabel();
+        lblSubMerek.setFont(view.util.Theme.regular(10.5f));
+        lblSubMerek.setForeground(new java.awt.Color(148, 163, 184));
+        lblSubMerek.setText("Pemeliharaan Fasilitas");
+        add(lblSubMerek);
+        lblSubMerek.setBounds(64, 41, 160, 16);
+
+        lblPeran = new view.util.MenuItem.LencanaPeran();
+        add(lblPeran);
+        lblPeran.setBounds(20, 78, 120, 24);
+
+        menu1 = new view.util.MenuItem("Dashboard");
+        add(menu1);
+        menu1.setBounds(20, 120, 200, 38);
+
+        menu2 = new view.util.MenuItem("Kelola Pengguna");
+        add(menu2);
+        menu2.setBounds(20, 162, 200, 38);
+
+        menu3 = new view.util.MenuItem("Kelola Fasilitas");
+        add(menu3);
+        menu3.setBounds(20, 204, 200, 38);
+
+        menu4 = new view.util.MenuItem("Laporan Kerusakan");
+        add(menu4);
+        menu4.setBounds(20, 246, 200, 38);
+
+        menu5 = new view.util.MenuItem("Cari Laporan");
+        add(menu5);
+        menu5.setBounds(20, 288, 200, 38);
+
+        tombolLogout = new view.util.MenuItem.Logout();
+        add(tombolLogout);
+        tombolLogout.setBounds(20, 718, 200, 34);
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private view.util.MerekAero logoPanel;
+    private javax.swing.JLabel lblMerek;
+    private javax.swing.JLabel lblSubMerek;
+    private view.util.MenuItem.LencanaPeran lblPeran;
+    private view.util.MenuItem menu1;
+    private view.util.MenuItem menu2;
+    private view.util.MenuItem menu3;
+    private view.util.MenuItem menu4;
+    private view.util.MenuItem menu5;
+    private view.util.MenuItem.Logout tombolLogout;
     // End of variables declaration//GEN-END:variables
+
+    // ---------- Kode pendukung tampilan (boleh disunting) ----------
+
+    private final Map<String, view.util.MenuItem> daftarMenu
+            = new LinkedHashMap<>();
+    private Consumer<String> aksiMenu;
+    private Runnable aksiLogout;
+    private String menuAktif = "Dashboard";
+    private String peran = "Admin";
+
+    /** Mengisi aksi tiap item menu dan aksi tombol keluar. */
+    private void susunMenu() {
+        daftarMenu.put("Dashboard", menu1);
+        daftarMenu.put("Kelola Pengguna", menu2);
+        daftarMenu.put("Kelola Fasilitas", menu3);
+        daftarMenu.put("Laporan Kerusakan", menu4);
+        daftarMenu.put("Cari Laporan", menu5);
+
+        for (Map.Entry<String, view.util.MenuItem> entri
+                : daftarMenu.entrySet()) {
+            view.util.MenuItem item = entri.getValue();
+            item.setAksi(() -> {
+                setMenuAktif(entri.getKey());
+                if (aksiMenu != null) {
+                    aksiMenu.accept(entri.getKey());
+                }
+            });
+        }
+
+        tombolLogout.setAksi(() -> {
+            if (aksiLogout != null) {
+                aksiLogout.run();
+            }
+        });
+    }
+
+    /** Menyesuaikan label menu dengan peran pengguna yang sedang masuk. */
+    public void terapkanPeran(String peran) {
+        String[] label;
+        if ("Supervisor".equalsIgnoreCase(peran)) {
+            label = new String[]{"Dashboard", "Penugasan Laporan",
+                "Pantau Progres", "Cari Laporan", "Rekap Laporan"};
+        } else if ("Petugas".equalsIgnoreCase(peran)) {
+            label = new String[]{"Dashboard", "Tugas Saya",
+                "Perbarui Progres", "Riwayat Progres", "Cari Laporan"};
+        } else {
+            label = new String[]{"Dashboard", "Kelola Pengguna",
+                "Kelola Fasilitas", "Laporan Kerusakan", "Cari Laporan"};
+        }
+
+        daftarMenu.clear();
+        view.util.MenuItem[] item = {menu1, menu2, menu3, menu4, menu5};
+        Color aksen = view.util.Theme.aksen(peran);
+        for (int i = 0; i < item.length; i++) {
+            item[i].setText(label[i]);
+            item[i].setAksen(aksen);
+            daftarMenu.put(label[i], item[i]);
+        }
+
+        lblPeran.setPeran(peran);
+        this.peran = peran;
+        revalidate();
+        repaint();
+    }
+
+    public String getPeran() {
+        return peran;
+    }
+
+    public void setAksiMenu(Consumer<String> aksiMenu) {
+        this.aksiMenu = aksiMenu;
+    }
+
+    public void setAksiLogout(Runnable aksiLogout) {
+        this.aksiLogout = aksiLogout;
+    }
+
+    public void setMenuAktif(String namaMenu) {
+        this.menuAktif = namaMenu;
+        for (Map.Entry<String, view.util.MenuItem> entri
+                : daftarMenu.entrySet()) {
+            entri.getValue().setAktif(entri.getKey().equals(namaMenu));
+        }
+    }
+
+    public String getMenuAktif() {
+        return menuAktif;
+    }
+
+    /** Menempatkan tombol keluar di dasar panel ketika panel diubah ukuran. */
+    @Override
+    public void doLayout() {
+        super.doLayout();
+        int tinggiIsi = Math.max(420, getHeight());
+        tombolLogout.setBounds(20, tinggiIsi - 56, 200, 34);
+    }
 }

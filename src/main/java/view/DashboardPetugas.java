@@ -1,20 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
-/**
- *
- * @author MSi-
- */
-public class DashboardPetugas extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardPetugas.class.getName());
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import model.Fasilitas;
+import model.LaporanKerusakan;
+import model.Pengguna;
+import model.Penugasan;
+import view.table.RendererTabel;
+import view.table.SimpleTableModel;
+import view.util.FormatUi;
 
-    /**
-     * Creates new form DashboardPetugas
-     */
+/**
+ * Form AEROCARE: Dashboard Petugas.
+ *
+ * @author Kelompok 7
+ */
+public class DashboardPetugas extends javax.swing.JPanel implements view.util.HalamanAeroCare {
+
+    /** Creates new form DashboardPetugas */
     public DashboardPetugas() {
         initComponents();
     }
@@ -28,47 +33,215 @@ public class DashboardPetugas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        lblJudul = new javax.swing.JLabel();
+        lblSubJudul = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 1200, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 760, Short.MAX_VALUE)
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lblJudul;
+    private javax.swing.JLabel lblSubJudul;
+    // End of variables declaration//GEN-END:variables
+
+    // ---------- Kode pendukung tampilan (boleh disunting) ----------
+
+    private final SimpleTableModel modelTugas = new SimpleTableModel(
+            "ID Tugas", "ID Laporan", "Fasilitas", "Lokasi", "Prioritas",
+            "Aksi");
+    private boolean siap;
+
+    private void siapkanTabel() {
+        tabelTugas.setModel(modelTugas);
+        view.util.UiKit.siapkanTabel(tabelTugas);
+        tabelTugas.setRowHeight(48);
+
+        int[] lebar = {100, 110, 260, 170, 110, 140};
+        for (int i = 0; i < lebar.length; i++) {
+            tabelTugas.getColumnModel().getColumn(i)
+                    .setPreferredWidth(lebar[i]);
+        }
+        tabelTugas.getColumnModel().getColumn(0)
+                .setCellRenderer(new RendererTabel.Id());
+        tabelTugas.getColumnModel().getColumn(1)
+                .setCellRenderer(new RendererTabel.TeksRedup());
+        tabelTugas.getColumnModel().getColumn(2)
+                .setCellRenderer(new RendererTabel.Utama());
+        tabelTugas.getColumnModel().getColumn(3)
+                .setCellRenderer(new RendererTabel.TeksRedup());
+        tabelTugas.getColumnModel().getColumn(4)
+                .setCellRenderer(new RendererTabel.Lencana());
+        tabelTugas.getColumnModel().getColumn(5)
+                .setCellRenderer(new RendererTabel.AksiDinamis());
+
+        tabelTugas.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int baris = tabelTugas.rowAtPoint(e.getPoint());
+                int kolom = tabelTugas.columnAtPoint(e.getPoint());
+                if (baris < 0 || baris >= modelTugas.getRowCount()) {
+                    return;
+                }
+                if (kolom == modelTugas.getColumnCount() - 1) {
+                    bukaPerbarui();
                 }
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new DashboardPetugas().setVisible(true));
+        });
+        tombolLihatSemua.addActionListener(e -> bukaTugasSaya());
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
+    private void bukaTugasSaya() {
+        java.awt.Window jendela
+                = javax.swing.SwingUtilities.getWindowAncestor(this);
+        if (jendela instanceof MainFrame) {
+            ((MainFrame) jendela).bukaHalaman("Tugas Saya");
+        }
+    }
+
+    private void bukaPerbarui() {
+        java.awt.Window jendela
+                = javax.swing.SwingUtilities.getWindowAncestor(this);
+        if (jendela instanceof MainFrame) {
+            ((MainFrame) jendela).bukaHalaman("Perbarui Progres");
+        }
+    }
+
+    @Override
+    public String judul() {
+        return "Dashboard";
+    }
+
+    @Override
+    public void muatData() {
+        if (!siap) {
+            siap = true;
+            siapkanTabel();
+        }
+
+        Map<Integer, String[]> fasilitasPerId = new HashMap<>();
+        for (Fasilitas f : new dao.FasilitasDAO().getAllFasilitas()) {
+            fasilitasPerId.put(f.getIdFasilitas(), new String[]{
+                f.getNamaFasilitas(),
+                f.getLokasi() == null ? "-" : f.getLokasi()});
+        }
+        Map<Integer, LaporanKerusakan> laporanPerId = new HashMap<>();
+        int diproses = 0;
+        int selesai = 0;
+        int prioritasTinggi = 0;
+        for (LaporanKerusakan l
+                : new dao.LaporanKerusakanDAO().getAllLaporan()) {
+            laporanPerId.put(l.getIdLaporan(), l);
+            if ("Diproses".equals(l.getStatus())) {
+                diproses++;
+            } else if ("Selesai".equals(l.getStatus())) {
+                selesai++;
+            }
+            if ("Tinggi".equals(l.getPrioritas())
+                    && !"Selesai".equals(l.getStatus())) {
+                prioritasTinggi++;
+            }
+        }
+
+        List<Object[]> isi = new ArrayList<>();
+        java.util.Set<Integer> laporanSaya = new java.util.HashSet<>();
+        for (Map.Entry<Integer, List<Integer>> entri
+                : new dao.PenugasanDAO().getPetugasIdPerLaporan()
+                        .entrySet()) {
+            if (entri.getValue().contains(view.util.Session.id())) {
+                laporanSaya.add(entri.getKey());
+            }
+        }
+
+        for (Penugasan p : new dao.PenugasanDAO().getAllPenugasan()) {
+            if (!laporanSaya.contains(p.getLaporanIdLaporan())) {
+                continue;
+            }
+            LaporanKerusakan laporan = laporanPerId.get(
+                    p.getLaporanIdLaporan());
+            if (laporan == null || "Selesai".equals(laporan.getStatus())) {
+                continue;
+            }
+            String[] f = fasilitasPerId.getOrDefault(
+                    laporan.getFasilitasIdFasilitas(), new String[]{"-", "-"});
+            String[] baris = {FormatUi.idTugas(p.getIdPenugasan()),
+                FormatUi.idLaporan(laporan.getIdLaporan()), f[0], f[1],
+                laporan.getPrioritas(), "Perbarui Progres"};
+            if ("Tinggi".equals(laporan.getPrioritas())) {
+                isi.add(0, baris);
+            } else {
+                isi.add(baris);
+            }
+        }
+        modelTugas.setBaris(isi);
+
+        String spesialisasi = "-";
+        String shift = "-";
+        for (dao.PenggunaDAO.PetugasAktif p
+                : new dao.PenggunaDAO().getPetugasAktif()) {
+            if (p.getIdPengguna() == view.util.Session.id()) {
+                spesialisasi = p.getSpesialisasi();
+                shift = p.getShiftKerja();
+                break;
+            }
+        }
+        lblSubJudul.setText("Spesialisasi: " + aman(spesialisasi)
+                + "     -     Shift: " + aman(shift));
+
+        isiKartu(kartuAktif, "Tugas Aktif", FormatUi.angka(isi.size()),
+                "Belum selesai", view.util.Theme.PETUGAS);
+        isiKartu(kartuDiproses, "Sedang Diproses",
+                FormatUi.angka(diproses), "Ada progres tercatat",
+                view.util.Theme.ADMIN);
+        isiKartu(kartuPrioritas, "Prioritas Tinggi",
+                FormatUi.angka(prioritasTinggi), "Utamakan lebih dulu",
+                view.util.Theme.RED);
+        isiKartu(kartuSelesai, "Laporan Selesai",
+                FormatUi.angka(selesai), "Laporan tuntas",
+                view.util.Theme.GREEN);
+
+        lblJudulTugas.setText(isi.isEmpty()
+                ? "Tugas Prioritas  -  tidak ada tugas aktif"
+                : "Tugas Prioritas  -  " + isi.size() + " tugas aktif");
+    }
+
+    private void isiKartu(view.util.CardStatistik kartu, String judul,
+            String nilai, String keterangan, java.awt.Color warna) {
+        kartu.setJudul(judul);
+        kartu.setNilai(nilai);
+        kartu.setKeterangan(keterangan);
+        kartu.setWarnaNilai(warna);
+    }
+
+    private String aman(String nilai) {
+        return nilai == null || nilai.trim().isEmpty() ? "-" : nilai;
+    }
+
+    @Override
+    public void sesuaikanUkuran(int lebar, int tinggi) {
+        int isi = Math.max(620, lebar - 68);
+        int celah = 16;
+        int lebarKartu = (isi - celah * 3) / 4;
+        int x = 34;
+        view.util.CardStatistik[] kartu = {kartuAktif, kartuDiproses,
+            kartuPrioritas, kartuSelesai};
+        for (view.util.CardStatistik k : kartu) {
+            k.setBounds(x, 96, lebarKartu, 104);
+            x += lebarKartu + celah;
+        }
+
+        int tinggiKartu = Math.max(240, tinggi - 300);
+        panelTugas.setBounds(34, 220, isi, tinggiKartu);
+        scrollTugas.setBounds(22, 60, isi - 44, tinggiKartu - 80);
+        tabelTugas.setBounds(0, 0, isi - 44, tinggiKartu - 80);
+        tombolLihatSemua.setBounds(isi - 140, 20, 118, 32);
+    }
 }

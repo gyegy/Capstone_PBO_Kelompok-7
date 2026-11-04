@@ -1,20 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view;
 
 /**
+ * Form AEROCARE: Header.
  *
- * @author MSi-
+ * @author Kelompok 7
  */
 public class Header extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Header
-     */
+
+    /** Creates new form Header */
     public Header() {
         initComponents();
+        setPengguna("Nama Pengguna", "Admin");
     }
 
     /**
@@ -26,19 +23,71 @@ public class Header extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setBackground(view.util.Theme.SURFACE);
+        setLayout(null);
+
+        lblJejak = new javax.swing.JLabel();
+        lblJejak.setFont(view.util.Theme.regular(12.5f));
+        lblJejak.setForeground(view.util.Theme.TEXT_MUTED);
+        lblJejak.setText("AEROCARE  /  Dashboard");
+        add(lblJejak);
+        lblJejak.setBounds(34, 24, 420, 18);
+
+        avatar = new view.util.BadgeLabel.Avatar();
+        add(avatar);
+        avatar.setBounds(880, 13, 38, 38);
+
+        lblNama = new javax.swing.JLabel();
+        lblNama.setFont(view.util.Theme.bold(13f));
+        lblNama.setForeground(view.util.Theme.TEXT);
+        lblNama.setText("Nama Pengguna");
+        add(lblNama);
+        lblNama.setBounds(930, 15, 170, 17);
+
+        lblPeran = new javax.swing.JLabel();
+        lblPeran.setFont(view.util.Theme.regular(11.5f));
+        lblPeran.setForeground(view.util.Theme.TEXT_MUTED);
+        lblPeran.setText("Admin");
+        add(lblPeran);
+        lblPeran.setBounds(930, 33, 170, 15);
+
+        lblGarisBawah = new javax.swing.JLabel();
+        lblGarisBawah.setBackground(view.util.Theme.BORDER);
+        lblGarisBawah.setOpaque(true);
+        add(lblGarisBawah);
+        lblGarisBawah.setBounds(0, 63, 1100, 1);
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lblJejak;
+    private view.util.BadgeLabel.Avatar avatar;
+    private javax.swing.JLabel lblNama;
+    private javax.swing.JLabel lblPeran;
+    private javax.swing.JLabel lblGarisBawah;
     // End of variables declaration//GEN-END:variables
+
+    // ---------- Kode pendukung tampilan (boleh disunting) ----------
+
+    public void setJejak(String halaman) {
+        lblJejak.setText("AEROCARE  /  " + halaman);
+    }
+
+    public void setPengguna(String nama, String peran) {
+        lblNama.setText(nama == null ? "-" : nama);
+        lblPeran.setText(peran == null ? "-" : peran);
+        avatar.setInisial(view.util.UiKit.inisial(nama));
+        avatar.setWarna(view.util.Theme.aksen(peran));
+    }
+
+    /** Merapatkan identitas pengguna ke tepi kanan header. */
+    @Override
+    public void doLayout() {
+        super.doLayout();
+        int kanan = getWidth() - 34;
+        lblNama.setBounds(kanan - 170, 15, 170, 17);
+        lblPeran.setBounds(kanan - 170, 33, 170, 15);
+        avatar.setBounds(kanan - 220, 13, 38, 38);
+        lblGarisBawah.setBounds(0, getHeight() - 1, getWidth(), 1);
+        lblJejak.setBounds(34, 24, Math.max(200, kanan - 500), 18);
+    }
 }
