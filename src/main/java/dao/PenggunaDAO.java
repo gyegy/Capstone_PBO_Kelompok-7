@@ -2,6 +2,9 @@ package dao;
 
 import config.Koneksi;
 import model.Pengguna;
+import model.Admin;
+import model.Supervisor;
+import model.Petugas;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,20 +16,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PenggunaDAO {
+    public Pengguna login(String username, String password) {
 
-    // 1. LOGIN PENGGUNA
-    public Pengguna login(String username) {
-
-        String sql = "SELECT * FROM pengguna "
-                + "WHERE username = ? "
-                + "AND password = ? "
-                + "AND status_aktif = 'Aktif'";
+        String sql = "SELECT p.id_pengguna, p.nama_lengkap, "
+                + "p.username, p.password, p.email, p.no_telepon, "
+                + "p.peran, p.status_aktif, "
+                + "a.hak_akses, "
+                + "s.area_pengawasan, "
+                + "pt.spesialisasi, pt.shift_kerja "
+                + "FROM pengguna p "
+                + "LEFT JOIN admin a ON p.id_pengguna = a.id_pengguna "
+                + "LEFT JOIN supervisor s ON p.id_pengguna = s.id_pengguna "
+                + "LEFT JOIN petugas pt ON p.id_pengguna = pt.id_pengguna "
+                + "WHERE p.username = ? "
+                + "AND p.password = ? "
+                + "AND p.status_aktif = 'Aktif'";
 
         try (Connection conn = Koneksi.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, username);
-            String password = null;
             ps.setString(2, password);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -44,14 +53,21 @@ public class PenggunaDAO {
         return null;
     }
 
-    // 2. MENAMPILKAN SELURUH DATA PENGGUNA
     public List<Pengguna> getAllPengguna() {
 
         List<Pengguna> daftarPengguna = new ArrayList<>();
 
-        String sql = "SELECT id_pengguna, nama_lengkap, username, "
-                + "email, no_telepon, peran, status_aktif "
-                + "FROM pengguna ORDER BY id_pengguna ASC";
+        String sql = "SELECT p.id_pengguna, p.nama_lengkap, "
+                + "p.username, p.email, p.no_telepon, "
+                + "p.peran, p.status_aktif, "
+                + "a.hak_akses, "
+                + "s.area_pengawasan, "
+                + "pt.spesialisasi, pt.shift_kerja "
+                + "FROM pengguna p "
+                + "LEFT JOIN admin a ON p.id_pengguna = a.id_pengguna "
+                + "LEFT JOIN supervisor s ON p.id_pengguna = s.id_pengguna "
+                + "LEFT JOIN petugas pt ON p.id_pengguna = pt.id_pengguna "
+                + "ORDER BY p.id_pengguna ASC";
 
         try (Connection conn = Koneksi.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -69,7 +85,6 @@ public class PenggunaDAO {
         return daftarPengguna;
     }
 
-    // 3. MENAMBAHKAN PENGGUNA BARU
     public boolean tambahPengguna(
             String namaLengkap,
             String username,
@@ -199,7 +214,6 @@ public class PenggunaDAO {
         }
     }
 
-    // 4. MEMPERBARUI DATA PENGGUNA
     public boolean updatePengguna(
             int idPengguna,
             String namaLengkap,
@@ -291,6 +305,7 @@ public class PenggunaDAO {
             String sqlTambahan;
 
             if ("Admin".equals(peran)) {
+
                 sqlTambahan = "UPDATE admin SET hak_akses = ? "
                         + "WHERE id_pengguna = ?";
 
@@ -307,6 +322,7 @@ public class PenggunaDAO {
                 }
 
             } else if ("Supervisor".equals(peran)) {
+
                 sqlTambahan = "UPDATE supervisor "
                         + "SET area_pengawasan = ? "
                         + "WHERE id_pengguna = ?";
@@ -324,6 +340,7 @@ public class PenggunaDAO {
                 }
 
             } else if ("Petugas".equals(peran)) {
+
                 sqlTambahan = "UPDATE petugas SET "
                         + "spesialisasi = ?, shift_kerja = ? "
                         + "WHERE id_pengguna = ?";
@@ -362,7 +379,6 @@ public class PenggunaDAO {
         }
     }
 
-    // 5. MENONAKTIFKAN PENGGUNA
     public boolean hapusPengguna(int idPengguna) {
 
         if (idPengguna <= 0) {
@@ -388,7 +404,6 @@ public class PenggunaDAO {
         }
     }
 
-    // 6. MENCARI DATA PENGGUNA
     public List<Pengguna> searchPengguna(String keyword) {
 
         List<Pengguna> daftarPengguna = new ArrayList<>();
@@ -397,16 +412,23 @@ public class PenggunaDAO {
             keyword = "";
         }
 
-        String sql = "SELECT id_pengguna, nama_lengkap, username, "
-                + "email, no_telepon, peran, status_aktif "
-                + "FROM pengguna "
-                + "WHERE CAST(id_pengguna AS CHAR) LIKE ? "
-                + "OR nama_lengkap LIKE ? "
-                + "OR username LIKE ? "
-                + "OR no_telepon LIKE ? "
-                + "OR peran LIKE ? "
-                + "OR status_aktif LIKE ? "
-                + "ORDER BY id_pengguna ASC";
+        String sql = "SELECT p.id_pengguna, p.nama_lengkap, "
+                + "p.username, p.email, p.no_telepon, "
+                + "p.peran, p.status_aktif, "
+                + "a.hak_akses, "
+                + "s.area_pengawasan, "
+                + "pt.spesialisasi, pt.shift_kerja "
+                + "FROM pengguna p "
+                + "LEFT JOIN admin a ON p.id_pengguna = a.id_pengguna "
+                + "LEFT JOIN supervisor s ON p.id_pengguna = s.id_pengguna "
+                + "LEFT JOIN petugas pt ON p.id_pengguna = pt.id_pengguna "
+                + "WHERE CAST(p.id_pengguna AS CHAR) LIKE ? "
+                + "OR p.nama_lengkap LIKE ? "
+                + "OR p.username LIKE ? "
+                + "OR p.no_telepon LIKE ? "
+                + "OR p.peran LIKE ? "
+                + "OR p.status_aktif LIKE ? "
+                + "ORDER BY p.id_pengguna ASC";
 
         try (Connection conn = Koneksi.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -432,17 +454,45 @@ public class PenggunaDAO {
         return daftarPengguna;
     }
 
-    // MEMBENTUK OBJEK PENGGUNA DARI RESULTSET
     private Pengguna ambilDataPengguna(ResultSet rs)
             throws SQLException {
 
-        Pengguna pengguna = new Pengguna();
+        String peran = rs.getString("peran");
+        Pengguna pengguna;
+
+        switch (peran) {
+
+            case "Admin":
+                Admin admin = new Admin();
+                admin.setHakAkses(rs.getString("hak_akses"));
+                pengguna = admin;
+                break;
+
+            case "Supervisor":
+                Supervisor supervisor = new Supervisor();
+                supervisor.setAreaPengawasan(
+                        rs.getString("area_pengawasan"));
+                pengguna = supervisor;
+                break;
+
+            case "Petugas":
+                Petugas petugas = new Petugas();
+                petugas.setSpesialisasi(
+                        rs.getString("spesialisasi"));
+                petugas.setShiftKerja(
+                        rs.getString("shift_kerja"));
+                pengguna = petugas;
+                break;
+
+            default:
+                throw new SQLException(
+                        "Peran pengguna tidak dikenal: " + peran);
+        }
 
         pengguna.setIdPengguna(rs.getInt("id_pengguna"));
         pengguna.setNamaLengkap(rs.getString("nama_lengkap"));
         pengguna.setUsername(rs.getString("username"));
 
-        // Password hanya diambil jika kolom tersedia
         try {
             pengguna.setPassword(rs.getString("password"));
         } catch (SQLException e) {
@@ -451,13 +501,12 @@ public class PenggunaDAO {
 
         pengguna.setEmail(rs.getString("email"));
         pengguna.setNoTelepon(rs.getString("no_telepon"));
-        pengguna.setPeran(rs.getString("peran"));
+        pengguna.setPeran(peran);
         pengguna.setStatusAktif(rs.getString("status_aktif"));
 
         return pengguna;
     }
 
-    // VALIDASI DATA UTAMA
     private boolean validasiDataUtama(
             String namaLengkap,
             String username,
@@ -503,7 +552,6 @@ public class PenggunaDAO {
         return true;
     }
 
-    // VALIDASI DATA PENGGUNA SAAT PENAMBAHAN
     private boolean validasiDataPengguna(
             String namaLengkap,
             String username,
@@ -534,7 +582,6 @@ public class PenggunaDAO {
         return true;
     }
 
-    // VALIDASI DATA TAMBAHAN BERDASARKAN PERAN
     private boolean validasiDataTambahan(
             String peran,
             String dataTambahan1,
@@ -576,7 +623,6 @@ public class PenggunaDAO {
         return false;
     }
 
-    // ROLLBACK TRANSAKSI
     private void rollbackTransaksi(Connection conn) {
 
         if (conn != null) {
@@ -589,7 +635,6 @@ public class PenggunaDAO {
         }
     }
 
-    // MENUTUP KONEKSI
     private void tutupKoneksi(Connection conn) {
 
         if (conn != null) {

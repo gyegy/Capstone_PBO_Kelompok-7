@@ -1,15 +1,15 @@
 package model;
 
-public class Pengguna {
+public abstract class Pengguna {
 
     private int idPengguna;
-    private String namaLengkap;
-    private String username;
     private String password;
-    private String email;
-    private String noTelepon;
-    private String peran;
-    private String statusAktif;
+    protected String namaLengkap;
+    protected String username;
+    protected String email;
+    protected String noTelepon;
+    protected String peran;
+    protected String statusAktif;
 
     public Pengguna() {
     }
@@ -90,5 +90,16 @@ public class Pengguna {
 
     public void setStatusAktif(String statusAktif) {
         this.statusAktif = statusAktif;
+    }
+
+    public abstract String getHakAkses();
+
+    public void tampilkanInformasi() {
+        System.out.println("ID Pengguna  : " + getIdPengguna());
+        System.out.println("Nama Lengkap : " + getNamaLengkap());
+        System.out.println("Username     : " + getUsername());
+        System.out.println("Peran        : " + getPeran());
+        System.out.println("Status       : " + getStatusAktif());
+        System.out.println("Hak Akses    : " + getHakAkses());
     }
 }
