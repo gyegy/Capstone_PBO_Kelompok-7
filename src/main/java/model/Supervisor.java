@@ -21,6 +21,7 @@ public class Supervisor extends Pengguna {
         this.areaPengawasan = areaPengawasan;
     }
 
+
     public String getAreaPengawasan() {
         return areaPengawasan;
     }
@@ -29,14 +30,9 @@ public class Supervisor extends Pengguna {
         this.areaPengawasan = areaPengawasan;
     }
 
-    @Override
-    public String getHakAkses() {
-        return "Memverifikasi laporan dan mengelola penugasan teknisi";
-    }
 
     @Override
-    public void tampilkanInformasi() {
-        super.tampilkanInformasi();
-        System.out.println("Area Pengawasan : " + areaPengawasan);
+    public String getInformasiPeran() {
+        return "Area Pengawasan : " + areaPengawasan;
     }
 }

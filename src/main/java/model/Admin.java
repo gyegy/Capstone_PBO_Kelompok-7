@@ -21,22 +21,17 @@ public class Admin extends Pengguna {
         this.hakAkses = hakAkses;
     }
 
-    public String getHakAksesAdmin() {
+
+    public String getHakAkses() {
         return hakAkses;
     }
 
-    public void setHakAksesAdmin(String hakAkses) {
+    public void setHakAkses(String hakAkses) {
         this.hakAkses = hakAkses;
     }
 
     @Override
-    public String getHakAkses() {
-        return "Mengelola seluruh data sistem AeroCare";
-    }
-
-    @Override
-    public void tampilkanInformasi() {
-        super.tampilkanInformasi();
-        System.out.println("Hak Akses Admin : " + hakAkses);
+    public String getInformasiPeran() {
+        return "Hak Akses Admin : " + hakAkses;
     }
 }

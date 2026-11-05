@@ -23,6 +23,7 @@ public class Petugas extends Pengguna {
         this.shiftKerja = shiftKerja;
     }
 
+
     public String getSpesialisasi() {
         return spesialisasi;
     }
@@ -40,14 +41,8 @@ public class Petugas extends Pengguna {
     }
 
     @Override
-    public String getHakAkses() {
-        return "Menangani pekerjaan dan memperbarui progres perbaikan";
-    }
-
-    @Override
-    public void tampilkanInformasi() {
-        super.tampilkanInformasi();
-        System.out.println("Spesialisasi : " + spesialisasi);
-        System.out.println("Shift Kerja  : " + shiftKerja);
+    public String getInformasiPeran() {
+        return "Spesialisasi : " + spesialisasi
+                + "\nShift Kerja  : " + shiftKerja;
     }
 }
