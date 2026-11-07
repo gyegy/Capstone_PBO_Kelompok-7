@@ -268,8 +268,16 @@ public class Login02View extends javax.swing.JFrame {
 
             adminController.simpanSesi(pengguna);
 
-            admin.Dashboard dashboardAdmin = new admin.Dashboard();
-            dashboardAdmin.setVisible(true);
+            // admin.Dashboard adalah JPanel, jadi harus dipasang di dalam JFrame
+            admin.Dashboard panelDashboard = new admin.Dashboard(pengguna);
+
+            javax.swing.JFrame frameDashboard = new javax.swing.JFrame("AEROCARE - Dashboard Admin");
+            frameDashboard.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+            frameDashboard.setContentPane(panelDashboard);
+            frameDashboard.pack();
+            frameDashboard.setSize(1280, 800);
+            frameDashboard.setLocationRelativeTo(null);
+            frameDashboard.setVisible(true);
 
             this.dispose();
 
