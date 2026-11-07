@@ -1,6 +1,7 @@
 package view;
 
 import config.Sesi;
+import dao.DetailPenugasanDAO;
 import dao.FasilitasDAO;
 import dao.LaporanKerusakanDAO;
 import dao.PenggunaDAO;
@@ -33,6 +34,9 @@ public class CariLaporanFrame extends javax.swing.JFrame {
 
     private final Map<Integer, Fasilitas> petaFasilitas = new HashMap<>();
     private List<LaporanKerusakan> hasil = new ArrayList<>();
+    // Petugas hanya boleh melihat laporan dari penugasan yang melibatkan dirinya
+    private final boolean modePetugas = "Petugas".equals(Sesi.getPeran());
+    private final Map<Integer, String> namaPetugasPerLaporan = new HashMap<>();
     private final SimpleDateFormat formatTanggal =
             new SimpleDateFormat("dd MMM yyyy", new Locale("id", "ID"));
 
@@ -44,6 +48,9 @@ public class CariLaporanFrame extends javax.swing.JFrame {
         for (Fasilitas f : fasilitasDAO.getAllFasilitas()) {
             petaFasilitas.put(f.getIdFasilitas(), f);
         }
+        siapkanDataPetugas();
+        btnKembali.setText("Kembali ke Menu " + Sesi.getPeran());
+        tblHasil.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         cari();
     }
 
@@ -71,6 +78,8 @@ public class CariLaporanFrame extends javax.swing.JFrame {
         cmbStatus = new javax.swing.JComboBox<>();
         lblPrioritas = new javax.swing.JLabel();
         cmbPrioritas = new javax.swing.JComboBox<>();
+        lblPetugas = new javax.swing.JLabel();
+        txtPetugas = new javax.swing.JTextField();
         lblDari = new javax.swing.JLabel();
         txtDari = new javax.swing.JTextField();
         lblSampai = new javax.swing.JLabel();
@@ -122,6 +131,11 @@ public class CariLaporanFrame extends javax.swing.JFrame {
 
         cmbPrioritas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semua", "Tinggi", "Sedang", "Rendah" }));
 
+        lblPetugas.setText("Petugas:");
+
+        txtPetugas.setColumns(10);
+        txtPetugas.addActionListener(this::btnCariActionPerformed);
+
         lblDari.setText("Tanggal (yyyy-MM-dd) dari:");
 
         txtDari.setColumns(8);
@@ -147,6 +161,8 @@ public class CariLaporanFrame extends javax.swing.JFrame {
         pnlKriteria.add(cmbStatus);
         pnlKriteria.add(lblPrioritas);
         pnlKriteria.add(cmbPrioritas);
+        pnlKriteria.add(lblPetugas);
+        pnlKriteria.add(txtPetugas);
         pnlKriteria.add(lblDari);
         pnlKriteria.add(txtDari);
         pnlKriteria.add(lblSampai);
@@ -158,9 +174,9 @@ public class CariLaporanFrame extends javax.swing.JFrame {
             new Object [][] {
 
             },
-            new String [] { "ID", "Tanggal", "Fasilitas", "Lokasi", "Prioritas", "Status" }
+            new String [] { "ID", "Tanggal", "Fasilitas", "Lokasi", "Prioritas", "Status", "Petugas" }
         ) {
-            boolean[] canEdit = new boolean [] { false, false, false, false, false, false };
+            boolean[] canEdit = new boolean [] { false, false, false, false, false, false, false };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -196,7 +212,7 @@ public class CariLaporanFrame extends javax.swing.JFrame {
         pnlIsi.add(pnlBawah, java.awt.BorderLayout.SOUTH);
 
         pnlUtama.setBorder(javax.swing.BorderFactory.createEmptyBorder(16, 24, 16, 24));
-        pnlUtama.setPreferredSize(new java.awt.Dimension(1120, 540));
+        pnlUtama.setPreferredSize(new java.awt.Dimension(1280, 540));
         pnlUtama.setLayout(new java.awt.BorderLayout(0, 8));
         pnlUtama.add(pnlHeader, java.awt.BorderLayout.NORTH);
         pnlUtama.add(pnlIsi, java.awt.BorderLayout.CENTER);
@@ -206,6 +222,27 @@ public class CariLaporanFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    // Petakan id_laporan -> nama petugas (aktif) dan, untuk Petugas, batasi
+    // akses ke laporan pada penugasan miliknya (DETAIL_PENUGASAN)
+    private void siapkanDataPetugas() {
+        Map<Integer, String> namaPerTugas =
+                new DetailPenugasanDAO().getNamaPetugasPerPenugasan();
+        List<Integer> milikSaya = new ArrayList<>();
+
+        if (modePetugas) {
+            milikSaya = new DetailPenugasanDAO().getIdPenugasanByPetugas(
+                    Integer.parseInt(Sesi.getIdPengguna()), false);
+        }
+
+        for (Penugasan p : new PenugasanDAO().getAllPenugasan()) {
+            if (modePetugas && !milikSaya.contains(p.getIdPenugasan())) {
+                continue;
+            }
+            String nama = namaPerTugas.get(p.getIdPenugasan());
+            namaPetugasPerLaporan.put(p.getLaporanIdLaporan(), nama == null ? "-" : nama);
+        }
+    }
 
     // Jalankan pencarian: kriteria kosong / "Semua" = tidak difilter
     private void cari() {
@@ -240,8 +277,18 @@ public class CariLaporanFrame extends javax.swing.JFrame {
         String status = (String) cmbStatus.getSelectedItem();
         String prioritas = (String) cmbPrioritas.getSelectedItem();
 
+        String kriteriaPetugas = txtPetugas.getText().trim().toLowerCase();
+
         hasil = new ArrayList<>();
         for (LaporanKerusakan l : sumber) {
+            if (modePetugas && !namaPetugasPerLaporan.containsKey(l.getIdLaporan())) {
+                continue;
+            }
+            String namaPetugas = namaPetugasPerLaporan.getOrDefault(l.getIdLaporan(), "-");
+            if (!kriteriaPetugas.isEmpty()
+                    && !namaPetugas.toLowerCase().contains(kriteriaPetugas)) {
+                continue;
+            }
             if (!"Semua".equals(status) && !status.equals(l.getStatus())) {
                 continue;
             }
@@ -268,7 +315,8 @@ public class CariLaporanFrame extends javax.swing.JFrame {
                 f == null ? "-" : f.getNamaFasilitas(),
                 f == null ? "-" : f.getLokasi(),
                 l.getPrioritas(),
-                l.getStatus()
+                l.getStatus(),
+                namaPetugasPerLaporan.getOrDefault(l.getIdLaporan(), "-")
             });
         }
 
@@ -285,6 +333,7 @@ public class CariLaporanFrame extends javax.swing.JFrame {
         txtCari.setText("");
         txtDari.setText("");
         txtSampai.setText("");
+        txtPetugas.setText("");
         cmbStatus.setSelectedIndex(0);
         cmbPrioritas.setSelectedIndex(0);
         cari();
@@ -362,7 +411,15 @@ public class CariLaporanFrame extends javax.swing.JFrame {
     }
 
     private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {
-        new AdminMenuFrame().setVisible(true);
+        String peran = Sesi.getPeran();
+
+        if ("Petugas".equals(peran)) {
+            new PetugasMenuFrame().setVisible(true);
+        } else if ("Supervisor".equals(peran)) {
+            new DashboardSupervisor().setVisible(true);
+        } else {
+            new AdminMenuFrame().setVisible(true);
+        }
         dispose();
     }
 
@@ -382,6 +439,8 @@ public class CariLaporanFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbStatus;
     private javax.swing.JLabel lblPrioritas;
     private javax.swing.JComboBox<String> cmbPrioritas;
+    private javax.swing.JLabel lblPetugas;
+    private javax.swing.JTextField txtPetugas;
     private javax.swing.JLabel lblDari;
     private javax.swing.JTextField txtDari;
     private javax.swing.JLabel lblSampai;
