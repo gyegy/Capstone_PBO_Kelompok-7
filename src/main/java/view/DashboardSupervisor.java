@@ -4,6 +4,9 @@
  */
 package view;
 
+import dao.ProgresPenangananDAO;
+import java.util.List;
+
 /**
  *
  * @author MSi-
@@ -20,8 +23,9 @@ public class DashboardSupervisor extends javax.swing.JFrame {
         tblPerlu.getColumnModel()
         .getColumn(3)
         .setCellRenderer(new PrioritasRenderer());
-
         pasangHalaman();
+        loadProgresTerbaru();
+
     }
 
     /**
@@ -558,17 +562,24 @@ public class DashboardSupervisor extends javax.swing.JFrame {
         tblPerlu.setForeground(new java.awt.Color(38, 52, 73));
         tblPerlu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"L-0105", "Eskalator E-03", "Terminal 1 Lt.1", "Tinggi"},
-                {"L-0103", "Toilet Pria B", "Terminal 2", "Sedang"},
-                {"L-0099", "Troli Bagasi Zona C", "Area Kedatangan", "Rendah"}
+                {null, "", "", ""},
+                {null, "", "", ""},
+                {null, "", "", ""}
             },
             new String [] {
-                "ID", "Fasilitas", "Lokasi", "Prioritas"
+                "Id Laporan", "Fasilitas", "Lokasi", "Prioritas"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -803,7 +814,43 @@ public class DashboardSupervisor extends javax.swing.JFrame {
         pilihMenu(1);
     }//GEN-LAST:event_btnTugaskanActionPerformed
 
+    private void loadProgresTerbaru() {
 
+    ProgresPenangananDAO dao = new ProgresPenangananDAO();
+
+    List<Object[]> daftar = dao.getProgresTerbaru();
+
+    // Jika belum ada data progres
+    lblPg1A.setText("Belum ada progres");
+    lblPg1B.setText("-");
+
+    lblPg2A.setText("Belum ada progres");
+    lblPg2B.setText("-");
+
+    lblPg3A.setText("Belum ada progres");
+    lblPg3B.setText("-");
+
+    if (daftar.size() > 0) {
+        lblPg1A.setText(daftar.get(0)[0].toString());
+        lblPg1B.setText(
+                daftar.get(0)[1] + " · " + daftar.get(0)[2]
+        );
+    }
+
+    if (daftar.size() > 1) {
+        lblPg2A.setText(daftar.get(1)[0].toString());
+        lblPg2B.setText(
+                daftar.get(1)[1] + " · " + daftar.get(1)[2]
+        );
+    }
+
+    if (daftar.size() > 2) {
+        lblPg3A.setText(daftar.get(2)[0].toString());
+        lblPg3B.setText(
+                daftar.get(2)[1] + " · " + daftar.get(2)[2]
+        );
+    }
+}
     private PenugasanView penugasanView1;
     private CariLaporanView cariLaporanView1;
     private RekapitulasiView rekapitulasiView1;
