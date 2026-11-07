@@ -105,4 +105,8 @@ public abstract class Pengguna {
 
         System.out.println(getInformasiPeran());
     }
+
+    public String getStatus_aktif() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

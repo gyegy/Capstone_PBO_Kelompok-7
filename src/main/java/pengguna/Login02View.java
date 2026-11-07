@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package pengguna;
 
-/**
- *
- * @author USER
- */
+        
 public class Login02View extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login02View.class.getName());
@@ -42,13 +35,15 @@ public class Login02View extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        btnPassword = new javax.swing.JPasswordField();
+        txtPassword = new javax.swing.JPasswordField();
         btnMasuk = new javax.swing.JButton();
-        btnKembaliMenuAwal = new javax.swing.JButton();
+        btnKembali = new javax.swing.JButton();
+        lblError = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 800));
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 153));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -81,30 +76,30 @@ public class Login02View extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(293, 293, 293)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addContainerGap(129, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(181, 181, 181)
-                .addComponent(jLabel2)
+                .addGap(168, 168, 168)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
-                .addGap(22, 22, 22)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -127,47 +122,55 @@ public class Login02View extends javax.swing.JFrame {
         btnMasuk.setBackground(new java.awt.Color(0, 51, 255));
         btnMasuk.setForeground(new java.awt.Color(255, 255, 255));
         btnMasuk.setText("Masuk");
+        btnMasuk.addActionListener(this::btnMasukActionPerformed);
 
-        btnKembaliMenuAwal.setText("Kembali Ke Menu Awal");
+        btnKembali.setText("Keluar");
+        btnKembali.addActionListener(this::btnKembaliActionPerformed);
+
+        lblError.setForeground(new java.awt.Color(220, 38, 38));
+        lblError.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblError.setOpaque(true);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnKembaliMenuAwal, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel9)
-                        .addComponent(btnPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel6)))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addGap(242, 242, 242)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblError)
+                    .addComponent(btnKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(196, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(163, 163, 163)
+                .addGap(169, 169, 169)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addGap(53, 53, 53)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addGap(18, 18, 18)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(lblError)
+                .addGap(18, 18, 18)
                 .addComponent(btnMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnKembaliMenuAwal, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(311, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -177,9 +180,8 @@ public class Login02View extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,6 +191,101 @@ public class Login02View extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
+         int pilihan = javax.swing.JOptionPane.showConfirmDialog(
+            this,
+            "Apakah Anda ingin keluar dari aplikasi?",
+            "Konfirmasi Keluar",
+            javax.swing.JOptionPane.YES_NO_OPTION,
+            javax.swing.JOptionPane.QUESTION_MESSAGE
+    );
+
+    if (pilihan == javax.swing.JOptionPane.YES_OPTION) {
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Terima kasih telah menggunakan sistem ini.",
+                "AeroCare",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE
+        );
+
+        System.exit(0);
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnKembaliActionPerformed
+
+    private void btnMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasukActionPerformed
+        String username = txtUsername.getText().trim();
+        String password = new String(txtPassword.getPassword()).trim();
+
+        lblError.setText("");
+
+        if (username.isEmpty()) {
+            lblError.setText("Username wajib diisi.");
+            txtUsername.requestFocusInWindow();
+            return;
+        }
+
+        if (password.isEmpty()) {
+            lblError.setText("Password wajib diisi.");
+            txtPassword.requestFocusInWindow();
+            return;
+        }
+
+        try {
+            controller.AdminController adminController =
+                    new controller.AdminController();
+
+            model.Pengguna pengguna =
+                    adminController.login(username, password);
+
+            if (pengguna == null) {
+                lblError.setText("Username atau password salah.");
+                txtPassword.setText("");
+                txtPassword.requestFocusInWindow();
+                return;
+            }
+
+            String statusAktif = pengguna.getStatusAktif();
+
+            if (statusAktif == null
+                    || !statusAktif.trim().equalsIgnoreCase("Aktif")) {
+                lblError.setText("Akun tidak aktif.");
+                txtPassword.setText("");
+                return;
+            }
+
+            String peran = pengguna.getPeran();
+
+            if (peran == null || peran.trim().isEmpty()) {
+                lblError.setText("Peran pengguna tidak tersedia.");
+                return;
+            }
+
+            if (!peran.trim().equalsIgnoreCase("Admin")) {
+                lblError.setText("Akun ini bukan akun Admin.");
+                return;
+            }
+
+            adminController.simpanSesi(pengguna);
+
+            admin.Dashboard dashboardAdmin = new admin.Dashboard();
+            dashboardAdmin.setVisible(true);
+
+            this.dispose();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+            lblError.setText("Login atau Dashboard gagal diproses.");
+
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Terjadi kesalahan:\n" + ex.toString(),
+                    "Kesalahan",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMasukActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,9 +313,8 @@ public class Login02View extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnKembaliMenuAwal;
+    private javax.swing.JButton btnKembali;
     private javax.swing.JButton btnMasuk;
-    private javax.swing.JPasswordField btnPassword;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -232,6 +328,8 @@ public class Login02View extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblError;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

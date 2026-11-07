@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package admin;
 
 /**
@@ -10,12 +6,20 @@ package admin;
  */
 public class Dashboard extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Dashboard
-     */
+    private model.Pengguna penggunaAktif;
+
     public Dashboard() {
         initComponents();
-    }
+}
+
+    public Dashboard(model.Pengguna pengguna) {
+        initComponents();
+        this.penggunaAktif = pengguna;
+
+    // contoh pemakaian data login di dashboard
+    // lblNamaAdmin.setText(pengguna.getNamaLengkap());
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -585,4 +589,7 @@ public class Dashboard extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    public void setLocationRelativeTo(java.awt.Component c) {
+    }
 }
