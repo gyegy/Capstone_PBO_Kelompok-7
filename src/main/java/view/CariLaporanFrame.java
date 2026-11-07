@@ -227,7 +227,7 @@ public class CariLaporanFrame extends javax.swing.JFrame {
     // akses ke laporan pada penugasan miliknya (DETAIL_PENUGASAN)
     private void siapkanDataPetugas() {
         Map<Integer, String> namaPerTugas =
-                new DetailPenugasanDAO().getNamaPetugasPerPenugasan();
+                new DetailPenugasanDAO().getNamaPetugasPerPenugasan(false);
         List<Integer> milikSaya = new ArrayList<>();
 
         if (modePetugas) {
@@ -416,7 +416,7 @@ public class CariLaporanFrame extends javax.swing.JFrame {
         if ("Petugas".equals(peran)) {
             new PetugasMenuFrame().setVisible(true);
         } else if ("Supervisor".equals(peran)) {
-            new DashboardSupervisor().setVisible(true);
+            new SupervisorMenuFrame().setVisible(true);
         } else {
             new AdminMenuFrame().setVisible(true);
         }
