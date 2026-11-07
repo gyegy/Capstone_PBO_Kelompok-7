@@ -1,30 +1,14 @@
 package controller;
 
-import dao.PenggunaDAO;
-import model.Pengguna;
-import config.Sesi;
+import dao.DashboardDAO;
+import java.util.Map;
 
-public class AdminController {
+public class AdminController extends AuthController {
 
-    private PenggunaDAO penggunaDAO;
+    private final DashboardDAO dashboardDAO = new DashboardDAO();
 
-    public AdminController() {
-        penggunaDAO = new PenggunaDAO();
-    }
-
-    public Pengguna login(String username, String password) {
-        return penggunaDAO.login(username, password);
-    }
-
-    public void simpanSesi(Pengguna pengguna) {
-        Sesi.simpan(
-                String.valueOf(pengguna.getIdPengguna()),
-                pengguna.getNamaLengkap(),
-                pengguna.getPeran()
-        );
-    }
-
-    public void hapusSesi() {
-        Sesi.hapus();
+    // totalFasilitas, fasilitasRusak, laporanMenunggu, totalPengguna, dst.
+    public Map<String, Integer> getRingkasanDashboard() {
+        return dashboardDAO.getRingkasanDashboard();
     }
 }
