@@ -151,7 +151,7 @@ public class LoginFrame extends javax.swing.JFrame {
         } else if ("Supervisor".equals(peran)) {
             new DashboardSupervisor().setVisible(true);
         } else {
-            new DashboardPetugas().setVisible(true);
+            new PetugasMenuFrame().setVisible(true);
         }
         dispose();
     }
