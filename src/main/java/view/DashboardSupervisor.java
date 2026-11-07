@@ -17,6 +17,10 @@ public class DashboardSupervisor extends javax.swing.JFrame {
      */
     public DashboardSupervisor() {
         initComponents();
+        tblPerlu.getColumnModel()
+        .getColumn(3)
+        .setCellRenderer(new PrioritasRenderer());
+
         pasangHalaman();
     }
 
@@ -99,22 +103,22 @@ public class DashboardSupervisor extends javax.swing.JFrame {
 
         pnlBrand.setOpaque(false);
 
-        lblLogoA.setText("A");
+        lblLogoA.setBackground(new java.awt.Color(124, 58, 237));
         lblLogoA.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblLogoA.setForeground(new java.awt.Color(255, 255, 255));
         lblLogoA.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLogoA.setBackground(new java.awt.Color(124, 58, 237));
+        lblLogoA.setText("A");
         lblLogoA.setOpaque(true);
 
         pnlBrandText.setOpaque(false);
 
-        lblBrand.setText("AEROCARE Bandara");
         lblBrand.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblBrand.setForeground(new java.awt.Color(255, 255, 255));
+        lblBrand.setText("AEROCARE Bandara");
 
-        lblBrandSub.setText("Pemeliharaan Fasilitas");
         lblBrandSub.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         lblBrandSub.setForeground(new java.awt.Color(148, 163, 184));
+        lblBrandSub.setText("Pemeliharaan Fasilitas");
 
         javax.swing.GroupLayout pnlBrandTextLayout = new javax.swing.GroupLayout(pnlBrandText);
         pnlBrandText.setLayout(pnlBrandTextLayout);
@@ -146,77 +150,77 @@ public class DashboardSupervisor extends javax.swing.JFrame {
             .addComponent(pnlBrandText, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        lblPeran.setText("Peran: Supervisor");
+        lblPeran.setBackground(new java.awt.Color(30, 41, 59));
         lblPeran.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblPeran.setForeground(new java.awt.Color(203, 213, 225));
-        lblPeran.setBackground(new java.awt.Color(30, 41, 59));
-        lblPeran.setOpaque(true);
+        lblPeran.setText("Peran: Supervisor");
         lblPeran.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 8, 4, 8));
+        lblPeran.setOpaque(true);
 
-        btnMenu1.setText("•  Dashboard");
-        btnMenu1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btnMenu1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnMenu1.setFocusPainted(false);
-        btnMenu1.setContentAreaFilled(false);
-        btnMenu1.setOpaque(true);
         btnMenu1.setBackground(new java.awt.Color(124, 58, 237));
+        btnMenu1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnMenu1.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenu1.setText("•  Dashboard");
         btnMenu1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 14, 0, 14));
+        btnMenu1.setContentAreaFilled(false);
+        btnMenu1.setFocusPainted(false);
+        btnMenu1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenu1.setOpaque(true);
         btnMenu1.addActionListener(this::btnMenu1ActionPerformed);
 
-        btnMenu2.setText("•  Penugasan Laporan");
-        btnMenu2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnMenu2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnMenu2.setFocusPainted(false);
-        btnMenu2.setContentAreaFilled(false);
-        btnMenu2.setOpaque(true);
         btnMenu2.setBackground(new java.awt.Color(15, 23, 42));
+        btnMenu2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnMenu2.setForeground(new java.awt.Color(203, 213, 225));
+        btnMenu2.setText("•  Penugasan Laporan");
         btnMenu2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 14, 0, 14));
+        btnMenu2.setContentAreaFilled(false);
+        btnMenu2.setFocusPainted(false);
+        btnMenu2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenu2.setOpaque(true);
         btnMenu2.addActionListener(this::btnMenu2ActionPerformed);
 
-        btnMenu3.setText("•  Pantau Progres");
-        btnMenu3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnMenu3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnMenu3.setFocusPainted(false);
-        btnMenu3.setContentAreaFilled(false);
-        btnMenu3.setOpaque(true);
         btnMenu3.setBackground(new java.awt.Color(15, 23, 42));
+        btnMenu3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnMenu3.setForeground(new java.awt.Color(203, 213, 225));
+        btnMenu3.setText("•  Pantau Progres");
         btnMenu3.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 14, 0, 14));
+        btnMenu3.setContentAreaFilled(false);
+        btnMenu3.setFocusPainted(false);
+        btnMenu3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenu3.setOpaque(true);
         btnMenu3.addActionListener(this::btnMenu3ActionPerformed);
 
-        btnMenu4.setText("•  Cari Laporan");
-        btnMenu4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnMenu4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnMenu4.setFocusPainted(false);
-        btnMenu4.setContentAreaFilled(false);
-        btnMenu4.setOpaque(true);
         btnMenu4.setBackground(new java.awt.Color(15, 23, 42));
+        btnMenu4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnMenu4.setForeground(new java.awt.Color(203, 213, 225));
+        btnMenu4.setText("•  Cari Laporan");
         btnMenu4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 14, 0, 14));
+        btnMenu4.setContentAreaFilled(false);
+        btnMenu4.setFocusPainted(false);
+        btnMenu4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenu4.setOpaque(true);
         btnMenu4.addActionListener(this::btnMenu4ActionPerformed);
 
-        btnMenu5.setText("•  Rekap Laporan");
-        btnMenu5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnMenu5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnMenu5.setFocusPainted(false);
-        btnMenu5.setContentAreaFilled(false);
-        btnMenu5.setOpaque(true);
         btnMenu5.setBackground(new java.awt.Color(15, 23, 42));
+        btnMenu5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnMenu5.setForeground(new java.awt.Color(203, 213, 225));
+        btnMenu5.setText("•  Rekap Laporan");
         btnMenu5.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 14, 0, 14));
+        btnMenu5.setContentAreaFilled(false);
+        btnMenu5.setFocusPainted(false);
+        btnMenu5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnMenu5.setOpaque(true);
         btnMenu5.addActionListener(this::btnMenu5ActionPerformed);
 
-        btnLogout.setText("•  Logout");
-        btnLogout.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnLogout.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnLogout.setFocusPainted(false);
-        btnLogout.setContentAreaFilled(false);
-        btnLogout.setOpaque(true);
         btnLogout.setBackground(new java.awt.Color(15, 23, 42));
+        btnLogout.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnLogout.setForeground(new java.awt.Color(248, 113, 113));
+        btnLogout.setText("•  Logout");
         btnLogout.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 14, 0, 14));
+        btnLogout.setContentAreaFilled(false);
+        btnLogout.setFocusPainted(false);
+        btnLogout.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnLogout.setOpaque(true);
         btnLogout.addActionListener(this::btnLogoutActionPerformed);
 
         javax.swing.GroupLayout pnlSidebarLayout = new javax.swing.GroupLayout(pnlSidebar);
@@ -265,25 +269,25 @@ public class DashboardSupervisor extends javax.swing.JFrame {
         pnlHeader.setBackground(new java.awt.Color(255, 255, 255));
         pnlHeader.setPreferredSize(new java.awt.Dimension(1040, 64));
 
-        lblBreadcrumb.setText("AEROCARE  /  Dashboard");
         lblBreadcrumb.setForeground(new java.awt.Color(100, 116, 139));
+        lblBreadcrumb.setText("AEROCARE  /  Dashboard");
 
-        lblAvatar.setText("F");
+        lblAvatar.setBackground(new java.awt.Color(124, 58, 237));
         lblAvatar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblAvatar.setForeground(new java.awt.Color(255, 255, 255));
         lblAvatar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAvatar.setBackground(new java.awt.Color(124, 58, 237));
+        lblAvatar.setText("F");
         lblAvatar.setOpaque(true);
 
         pnlUser.setOpaque(false);
 
-        lblNama.setText("Fatim");
         lblNama.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblNama.setForeground(new java.awt.Color(15, 23, 42));
+        lblNama.setText("Fatim");
 
-        lblRole.setText("Supervisor");
         lblRole.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblRole.setForeground(new java.awt.Color(100, 116, 139));
+        lblRole.setText("Supervisor");
 
         javax.swing.GroupLayout pnlUserLayout = new javax.swing.GroupLayout(pnlUser);
         pnlUser.setLayout(pnlUserLayout);
@@ -325,30 +329,31 @@ public class DashboardSupervisor extends javax.swing.JFrame {
         pnlContent.setPreferredSize(new java.awt.Dimension(1040, 736));
         pnlContent.setLayout(new java.awt.CardLayout());
 
-        pnlDashboard.setBackground(new java.awt.Color(241, 245, 249));
+        pnlDashboard.setBackground(new java.awt.Color(240, 243, 249));
 
+        lblDashboardJudul.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        lblDashboardJudul.setForeground(new java.awt.Color(38, 52, 73));
         lblDashboardJudul.setText("Dashboard Supervisor");
-        lblDashboardJudul.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        lblDashboardJudul.setForeground(new java.awt.Color(15, 23, 42));
 
-        lblDashboardSub.setText("Ringkasan penugasan dan progres penanganan");
+        lblDashboardSub.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         lblDashboardSub.setForeground(new java.awt.Color(100, 116, 139));
+        lblDashboardSub.setText("Ringkasan penugasan dan progres penanganan");
 
         pnlStat.setOpaque(false);
 
         cardMenunggu.setBackground(new java.awt.Color(255, 255, 255));
         cardMenunggu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
-        lblcardMenungguJudul.setText("Menunggu Penugasan");
         lblcardMenungguJudul.setForeground(new java.awt.Color(100, 116, 139));
+        lblcardMenungguJudul.setText("Menunggu Penugasan");
 
-        lblcardMenungguNilai.setText("5");
         lblcardMenungguNilai.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
         lblcardMenungguNilai.setForeground(new java.awt.Color(217, 119, 6));
+        lblcardMenungguNilai.setText("5");
 
-        lblcardMenungguKet.setText("Laporan belum ditugaskan");
         lblcardMenungguKet.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblcardMenungguKet.setForeground(new java.awt.Color(148, 163, 184));
+        lblcardMenungguKet.setText("Laporan belum ditugaskan");
 
         javax.swing.GroupLayout cardMenungguLayout = new javax.swing.GroupLayout(cardMenunggu);
         cardMenunggu.setLayout(cardMenungguLayout);
@@ -377,16 +382,16 @@ public class DashboardSupervisor extends javax.swing.JFrame {
         cardBerjalan.setBackground(new java.awt.Color(255, 255, 255));
         cardBerjalan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
-        lblcardBerjalanJudul.setText("Penugasan Berjalan");
         lblcardBerjalanJudul.setForeground(new java.awt.Color(100, 116, 139));
+        lblcardBerjalanJudul.setText("Penugasan Berjalan");
 
-        lblcardBerjalanNilai.setText("9");
         lblcardBerjalanNilai.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
         lblcardBerjalanNilai.setForeground(new java.awt.Color(37, 99, 235));
+        lblcardBerjalanNilai.setText("9");
 
-        lblcardBerjalanKet.setText("Sedang diproses");
         lblcardBerjalanKet.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblcardBerjalanKet.setForeground(new java.awt.Color(148, 163, 184));
+        lblcardBerjalanKet.setText("Sedang diproses");
 
         javax.swing.GroupLayout cardBerjalanLayout = new javax.swing.GroupLayout(cardBerjalan);
         cardBerjalan.setLayout(cardBerjalanLayout);
@@ -415,16 +420,16 @@ public class DashboardSupervisor extends javax.swing.JFrame {
         cardSelesai.setBackground(new java.awt.Color(255, 255, 255));
         cardSelesai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
-        lblcardSelesaiJudul.setText("Selesai Bulan Ini");
         lblcardSelesaiJudul.setForeground(new java.awt.Color(100, 116, 139));
+        lblcardSelesaiJudul.setText("Selesai Bulan Ini");
 
-        lblcardSelesaiNilai.setText("28");
         lblcardSelesaiNilai.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
         lblcardSelesaiNilai.setForeground(new java.awt.Color(21, 128, 61));
+        lblcardSelesaiNilai.setText("28");
 
-        lblcardSelesaiKet.setText("Laporan tuntas");
         lblcardSelesaiKet.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblcardSelesaiKet.setForeground(new java.awt.Color(148, 163, 184));
+        lblcardSelesaiKet.setText("Laporan tuntas");
 
         javax.swing.GroupLayout cardSelesaiLayout = new javax.swing.GroupLayout(cardSelesai);
         cardSelesai.setLayout(cardSelesaiLayout);
@@ -453,16 +458,16 @@ public class DashboardSupervisor extends javax.swing.JFrame {
         cardPetugas.setBackground(new java.awt.Color(255, 255, 255));
         cardPetugas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
-        lblcardPetugasJudul.setText("Petugas Aktif");
         lblcardPetugasJudul.setForeground(new java.awt.Color(100, 116, 139));
+        lblcardPetugasJudul.setText("Petugas Aktif");
 
-        lblcardPetugasNilai.setText("12");
         lblcardPetugasNilai.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
         lblcardPetugasNilai.setForeground(new java.awt.Color(15, 23, 42));
+        lblcardPetugasNilai.setText("12");
 
-        lblcardPetugasKet.setText("Siap ditugaskan");
         lblcardPetugasKet.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblcardPetugasKet.setForeground(new java.awt.Color(148, 163, 184));
+        lblcardPetugasKet.setText("Siap ditugaskan");
 
         javax.swing.GroupLayout cardPetugasLayout = new javax.swing.GroupLayout(cardPetugas);
         cardPetugas.setLayout(cardPetugasLayout);
@@ -512,21 +517,22 @@ public class DashboardSupervisor extends javax.swing.JFrame {
         pnlDashRow.setOpaque(false);
 
         pnlPerlu.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPerlu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
+        pnlPerlu.setForeground(new java.awt.Color(38, 52, 73));
 
         pnlPerluHead.setOpaque(false);
 
+        lblPerluJudul.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        lblPerluJudul.setForeground(new java.awt.Color(38, 52, 73));
         lblPerluJudul.setText("Perlu Ditugaskan");
-        lblPerluJudul.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblPerluJudul.setForeground(new java.awt.Color(15, 23, 42));
 
+        btnTugaskan.setBackground(new java.awt.Color(255, 255, 255));
+        btnTugaskan.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
+        btnTugaskan.setForeground(new java.awt.Color(38, 52, 73));
         btnTugaskan.setText("Tugaskan");
-        btnTugaskan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnTugaskan.setFocusPainted(false);
-        btnTugaskan.setContentAreaFilled(false);
-        btnTugaskan.setOpaque(true);
-        btnTugaskan.setForeground(new java.awt.Color(15, 23, 42));
         btnTugaskan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)));
+        btnTugaskan.setContentAreaFilled(false);
+        btnTugaskan.setFocusPainted(false);
+        btnTugaskan.setOpaque(true);
         btnTugaskan.addActionListener(this::btnTugaskanActionPerformed);
 
         javax.swing.GroupLayout pnlPerluHeadLayout = new javax.swing.GroupLayout(pnlPerluHead);
@@ -544,9 +550,12 @@ public class DashboardSupervisor extends javax.swing.JFrame {
             .addComponent(btnTugaskan, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        scr_tblPerlu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
         scr_tblPerlu.setBackground(new java.awt.Color(255, 255, 255));
+        scr_tblPerlu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
+        scr_tblPerlu.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
+        tblPerlu.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        tblPerlu.setForeground(new java.awt.Color(38, 52, 73));
         tblPerlu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"L-0105", "Eskalator E-03", "Terminal 1 Lt.1", "Tinggi"},
@@ -565,12 +574,11 @@ public class DashboardSupervisor extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblPerlu.setForeground(new java.awt.Color(15, 23, 42));
-        tblPerlu.setRowHeight(40);
         tblPerlu.setFillsViewportHeight(true);
         tblPerlu.setGridColor(new java.awt.Color(226, 232, 240));
+        tblPerlu.setRowHeight(40);
         tblPerlu.setSelectionBackground(new java.awt.Color(219, 234, 254));
-        tblPerlu.setSelectionForeground(new java.awt.Color(15, 23, 42));
+        tblPerlu.setSelectionForeground(new java.awt.Color(38, 52, 73));
         scr_tblPerlu.setViewportView(tblPerlu);
 
         javax.swing.GroupLayout pnlPerluLayout = new javax.swing.GroupLayout(pnlPerlu);
@@ -581,7 +589,7 @@ public class DashboardSupervisor extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(pnlPerluLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlPerluHead, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scr_tblPerlu, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE))
+                    .addComponent(scr_tblPerlu, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
         );
         pnlPerluLayout.setVerticalGroup(
@@ -597,19 +605,19 @@ public class DashboardSupervisor extends javax.swing.JFrame {
         pnlProgres.setBackground(new java.awt.Color(255, 255, 255));
         pnlProgres.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
-        lblProgresJudul.setText("Progres Terbaru");
         lblProgresJudul.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblProgresJudul.setForeground(new java.awt.Color(15, 23, 42));
+        lblProgresJudul.setText("Progres Terbaru");
 
         pnlPg1.setOpaque(false);
 
-        lblPg1A.setText("Lift L-02");
         lblPg1A.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblPg1A.setForeground(new java.awt.Color(15, 23, 42));
+        lblPg1A.setText("Lift L-02");
 
-        lblPg1B.setText("Perbaikan · Agus P.");
         lblPg1B.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblPg1B.setForeground(new java.awt.Color(100, 116, 139));
+        lblPg1B.setText("Perbaikan · Agus P.");
 
         javax.swing.GroupLayout pnlPg1Layout = new javax.swing.GroupLayout(pnlPg1);
         pnlPg1.setLayout(pnlPg1Layout);
@@ -628,13 +636,13 @@ public class DashboardSupervisor extends javax.swing.JFrame {
 
         pnlPg2.setOpaque(false);
 
-        lblPg2A.setText("AC Ruang Tunggu A");
         lblPg2A.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblPg2A.setForeground(new java.awt.Color(15, 23, 42));
+        lblPg2A.setText("AC Ruang Tunggu A");
 
-        lblPg2B.setText("Selesai · Dewi L.");
         lblPg2B.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblPg2B.setForeground(new java.awt.Color(100, 116, 139));
+        lblPg2B.setText("Selesai · Dewi L.");
 
         javax.swing.GroupLayout pnlPg2Layout = new javax.swing.GroupLayout(pnlPg2);
         pnlPg2.setLayout(pnlPg2Layout);
@@ -653,13 +661,13 @@ public class DashboardSupervisor extends javax.swing.JFrame {
 
         pnlPg3.setOpaque(false);
 
-        lblPg3A.setText("Toilet Pria A");
         lblPg3A.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblPg3A.setForeground(new java.awt.Color(15, 23, 42));
+        lblPg3A.setText("Toilet Pria A");
 
-        lblPg3B.setText("Pemeriksaan · Fajar N.");
         lblPg3B.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblPg3B.setForeground(new java.awt.Color(100, 116, 139));
+        lblPg3B.setText("Pemeriksaan · Fajar N.");
 
         javax.swing.GroupLayout pnlPg3Layout = new javax.swing.GroupLayout(pnlPg3);
         pnlPg3.setLayout(pnlPg3Layout);

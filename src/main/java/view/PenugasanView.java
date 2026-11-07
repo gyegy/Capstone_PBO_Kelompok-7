@@ -65,25 +65,27 @@ public class PenugasanView extends javax.swing.JPanel {
 
         pnlBuat.setBackground(new java.awt.Color(241, 245, 249));
 
-        lblBuatJudul.setText("Penugasan Laporan ke Petugas");
         lblBuatJudul.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         lblBuatJudul.setForeground(new java.awt.Color(15, 23, 42));
+        lblBuatJudul.setText("Penugasan Laporan ke Petugas");
 
-        lblBuatSub.setText("Pilih satu laporan menunggu, lalu pilih satu atau lebih petugas aktif");
         lblBuatSub.setForeground(new java.awt.Color(100, 116, 139));
+        lblBuatSub.setText("Pilih satu laporan menunggu, lalu pilih satu atau lebih petugas aktif");
 
         pnlBdRow.setOpaque(false);
 
         pnlBdLaporan.setBackground(new java.awt.Color(255, 255, 255));
         pnlBdLaporan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
-        lblBdLaporanJudul.setText("1. Laporan Menunggu Penugasan");
         lblBdLaporanJudul.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblBdLaporanJudul.setForeground(new java.awt.Color(15, 23, 42));
+        lblBdLaporanJudul.setText("1. Laporan Menunggu Penugasan");
 
-        scr_tblLaporanMenunggu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
         scr_tblLaporanMenunggu.setBackground(new java.awt.Color(255, 255, 255));
+        scr_tblLaporanMenunggu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
+        tblLaporanMenunggu.setBackground(new java.awt.Color(255, 255, 255));
+        tblLaporanMenunggu.setForeground(new java.awt.Color(38, 52, 73));
         tblLaporanMenunggu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Eskalator E-03", "Terminal 1 Lt.1", "Tinggi"},
@@ -102,12 +104,11 @@ public class PenugasanView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblLaporanMenunggu.setForeground(new java.awt.Color(15, 23, 42));
-        tblLaporanMenunggu.setRowHeight(44);
         tblLaporanMenunggu.setFillsViewportHeight(true);
         tblLaporanMenunggu.setGridColor(new java.awt.Color(226, 232, 240));
-        tblLaporanMenunggu.setSelectionBackground(new java.awt.Color(219, 234, 254));
-        tblLaporanMenunggu.setSelectionForeground(new java.awt.Color(15, 23, 42));
+        tblLaporanMenunggu.setRowHeight(44);
+        tblLaporanMenunggu.setSelectionBackground(new java.awt.Color(226, 232, 240));
+        tblLaporanMenunggu.setSelectionForeground(new java.awt.Color(38, 52, 73));
         scr_tblLaporanMenunggu.setViewportView(tblLaporanMenunggu);
 
         javax.swing.GroupLayout pnlBdLaporanLayout = new javax.swing.GroupLayout(pnlBdLaporan);
@@ -134,13 +135,15 @@ public class PenugasanView extends javax.swing.JPanel {
         pnlBdPetugas.setBackground(new java.awt.Color(255, 255, 255));
         pnlBdPetugas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
-        lblBdPetugasJudul.setText("2. Petugas Aktif");
         lblBdPetugasJudul.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblBdPetugasJudul.setForeground(new java.awt.Color(15, 23, 42));
+        lblBdPetugasJudul.setText("2. Petugas Aktif");
 
-        scr_tblPetugasAktif.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
         scr_tblPetugasAktif.setBackground(new java.awt.Color(255, 255, 255));
+        scr_tblPetugasAktif.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
+        tblPetugasAktif.setBackground(new java.awt.Color(255, 255, 255));
+        tblPetugasAktif.setForeground(new java.awt.Color(38, 52, 73));
         tblPetugasAktif.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Agus Prasetyo", "Listrik", "Pagi", "Utama"},
@@ -159,12 +162,11 @@ public class PenugasanView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblPetugasAktif.setForeground(new java.awt.Color(15, 23, 42));
-        tblPetugasAktif.setRowHeight(44);
         tblPetugasAktif.setFillsViewportHeight(true);
         tblPetugasAktif.setGridColor(new java.awt.Color(226, 232, 240));
+        tblPetugasAktif.setRowHeight(44);
         tblPetugasAktif.setSelectionBackground(new java.awt.Color(219, 234, 254));
-        tblPetugasAktif.setSelectionForeground(new java.awt.Color(15, 23, 42));
+        tblPetugasAktif.setSelectionForeground(new java.awt.Color(38, 52, 73));
         scr_tblPetugasAktif.setViewportView(tblPetugasAktif);
 
         javax.swing.GroupLayout pnlBdPetugasLayout = new javax.swing.GroupLayout(pnlBdPetugas);
@@ -206,45 +208,45 @@ public class PenugasanView extends javax.swing.JPanel {
         pnlBdCatatan.setBackground(new java.awt.Color(255, 255, 255));
         pnlBdCatatan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
-        lblBdCatatanJudul.setText("3. Catatan Penugasan");
         lblBdCatatanJudul.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBdCatatanJudul.setForeground(new java.awt.Color(15, 23, 42));
+        lblBdCatatanJudul.setForeground(new java.awt.Color(38, 52, 73));
+        lblBdCatatanJudul.setText("3. Catatan Penugasan");
 
-        lblBdCatatanLabel.setText("Catatan (opsional, maks. 150 karakter)");
         lblBdCatatanLabel.setForeground(new java.awt.Color(51, 65, 85));
+        lblBdCatatanLabel.setText("Catatan (opsional, maks. 150 karakter)");
 
         scr_txtBdCatatan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)));
 
         txtBdCatatan.setColumns(20);
-        txtBdCatatan.setRows(4);
-        txtBdCatatan.setLineWrap(true);
-        txtBdCatatan.setWrapStyleWord(true);
         txtBdCatatan.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtBdCatatan.setForeground(new java.awt.Color(15, 23, 42));
-        txtBdCatatan.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        txtBdCatatan.setLineWrap(true);
+        txtBdCatatan.setRows(4);
         txtBdCatatan.setText("Periksa motor penggerak dan sabuk eskalator terlebih dahulu.");
         txtBdCatatan.setToolTipText("Catatan untuk petugas");
+        txtBdCatatan.setWrapStyleWord(true);
+        txtBdCatatan.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
         scr_txtBdCatatan.setViewportView(txtBdCatatan);
 
         pnlBdTombol.setOpaque(false);
 
-        btnBdBatal.setText("Batal");
         btnBdBatal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnBdBatal.setFocusPainted(false);
-        btnBdBatal.setContentAreaFilled(false);
-        btnBdBatal.setOpaque(true);
         btnBdBatal.setForeground(new java.awt.Color(15, 23, 42));
+        btnBdBatal.setText("Batal");
         btnBdBatal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)));
+        btnBdBatal.setContentAreaFilled(false);
+        btnBdBatal.setFocusPainted(false);
+        btnBdBatal.setOpaque(true);
         btnBdBatal.addActionListener(this::btnBatalActionPerformed);
 
-        btnBdBuat.setText("Buat Penugasan");
-        btnBdBuat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnBdBuat.setFocusPainted(false);
-        btnBdBuat.setContentAreaFilled(false);
-        btnBdBuat.setOpaque(true);
         btnBdBuat.setBackground(new java.awt.Color(124, 58, 237));
+        btnBdBuat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBdBuat.setForeground(new java.awt.Color(255, 255, 255));
+        btnBdBuat.setText("Buat Penugasan");
         btnBdBuat.setBorderPainted(false);
+        btnBdBuat.setContentAreaFilled(false);
+        btnBdBuat.setFocusPainted(false);
+        btnBdBuat.setOpaque(true);
         btnBdBuat.addActionListener(this::btnBuatActionPerformed);
 
         javax.swing.GroupLayout pnlBdTombolLayout = new javax.swing.GroupLayout(pnlBdTombol);
@@ -321,15 +323,15 @@ public class PenugasanView extends javax.swing.JPanel {
 
         pnlPantau.setBackground(new java.awt.Color(241, 245, 249));
 
-        lblPantauJudul.setText("Pantau Progres Penugasan");
         lblPantauJudul.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         lblPantauJudul.setForeground(new java.awt.Color(15, 23, 42));
+        lblPantauJudul.setText("Pantau Progres Penugasan");
 
-        lblPantauSub.setText("Daftar penugasan, petugas, dan progres terakhir");
         lblPantauSub.setForeground(new java.awt.Color(100, 116, 139));
+        lblPantauSub.setText("Daftar penugasan, petugas, dan progres terakhir");
 
-        scr_tblPantau.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
         scr_tblPantau.setBackground(new java.awt.Color(255, 255, 255));
+        scr_tblPantau.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
         tblPantau.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -391,29 +393,29 @@ public class PenugasanView extends javax.swing.JPanel {
 
         pnlRiwayat.setBackground(new java.awt.Color(241, 245, 249));
 
-        lblRiwayatJudul.setText("Riwayat Progres Penugasan T-021");
         lblRiwayatJudul.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         lblRiwayatJudul.setForeground(new java.awt.Color(15, 23, 42));
+        lblRiwayatJudul.setText("Riwayat Progres Penugasan T-021");
 
-        lblRiwayatSub.setText("Lift L-02  ·  Agus Prasetyo (utama), Dewi Lestari");
         lblRiwayatSub.setForeground(new java.awt.Color(100, 116, 139));
+        lblRiwayatSub.setText("Lift L-02  ·  Agus Prasetyo (utama), Dewi Lestari");
 
         pnlRwCard.setBackground(new java.awt.Color(255, 255, 255));
         pnlRwCard.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
         pnlRwCardHead.setOpaque(false);
 
-        lblRwCardJudul.setText("Riwayat Progres");
         lblRwCardJudul.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblRwCardJudul.setForeground(new java.awt.Color(15, 23, 42));
+        lblRwCardJudul.setText("Riwayat Progres");
 
-        btnRwKembali.setText("Kembali");
         btnRwKembali.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnRwKembali.setFocusPainted(false);
-        btnRwKembali.setContentAreaFilled(false);
-        btnRwKembali.setOpaque(true);
         btnRwKembali.setForeground(new java.awt.Color(15, 23, 42));
+        btnRwKembali.setText("Kembali");
         btnRwKembali.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)));
+        btnRwKembali.setContentAreaFilled(false);
+        btnRwKembali.setFocusPainted(false);
+        btnRwKembali.setOpaque(true);
         btnRwKembali.addActionListener(this::btnKembaliActionPerformed);
 
         javax.swing.GroupLayout pnlRwCardHeadLayout = new javax.swing.GroupLayout(pnlRwCardHead);
@@ -431,8 +433,8 @@ public class PenugasanView extends javax.swing.JPanel {
             .addComponent(btnRwKembali, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        scr_tblRiwayat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
         scr_tblRiwayat.setBackground(new java.awt.Color(255, 255, 255));
+        scr_tblRiwayat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
         tblRiwayat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
