@@ -811,14 +811,32 @@ public class DashboardSupervisor extends javax.swing.JFrame {
 
     /** Memasang panel halaman (PenggunaView dst.) ke panel host di pnlContent. */
     private void pasangHalaman() {
-        penugasanView1 = new PenugasanView();
-        pgPenugasan.add(penugasanView1, java.awt.BorderLayout.CENTER);
-        cariLaporanView1 = new CariLaporanView();
-        cariLaporanView1.setPeran("Supervisor");
-        pgCari.add(cariLaporanView1, java.awt.BorderLayout.CENTER);
-        rekapitulasiView1 = new RekapitulasiView();
-        pgRekap.add(rekapitulasiView1, java.awt.BorderLayout.CENTER);
-    }
+
+    // Daftarkan nama setiap kartu pada CardLayout
+    pnlContent.removeAll();
+
+    pnlContent.add(pnlDashboard, "dashboard");
+    pnlContent.add(pgPenugasan, "penugasan");
+    pnlContent.add(pgCari, "cari");
+    pnlContent.add(pgRekap, "rekap");
+
+    // Pasang halaman Penugasan
+    penugasanView1 = new PenugasanView();
+    pgPenugasan.add(penugasanView1, java.awt.BorderLayout.CENTER);
+
+    // Pasang halaman Cari Laporan
+    cariLaporanView1 = new CariLaporanView();
+    cariLaporanView1.setPeran("Supervisor");
+    pgCari.add(cariLaporanView1, java.awt.BorderLayout.CENTER);
+
+    // Pasang halaman Rekapitulasi
+    rekapitulasiView1 = new RekapitulasiView();
+    pgRekap.add(rekapitulasiView1, java.awt.BorderLayout.CENTER);
+
+    pnlContent.revalidate();
+    pnlContent.repaint();
+ }
+    
 
     /** Berpindah halaman sesuai menu sidebar (0 = Dashboard). */
     private void pilihMenu(int indeks) {
