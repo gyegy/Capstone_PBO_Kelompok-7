@@ -50,7 +50,7 @@ public class DetailPenugasanDAO {
     }
 
     // Nama Petugas berstatus Aktif untuk setiap penugasan
-    public Map<Integer, String> getNamaPetugasPerPenugasan() {
+    public Map<Integer, String> getNamaPetugasPerPenugasan(boolean par) {
         Map<Integer, String> peta = new LinkedHashMap<>();
 
         String sql = "SELECT dp.PENUGASAN_id_penugasan, p.nama_lengkap "
@@ -78,5 +78,9 @@ public class DetailPenugasanDAO {
         }
 
         return peta;
+    }
+
+    public Iterable<int[]> getKeterlibatan() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
